@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
 <head>
     <title>Meteo App</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
@@ -9,7 +10,7 @@
 <body>
 
 <div id="root"></div>
-<script src="../static/client/build/bundle.js"></script>
+<script th:src="@{/client/build/bundle.js}"></script>
 
 </body>
 </html>
