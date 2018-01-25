@@ -22,4 +22,10 @@ public interface UserMapper {
     @Delete("DELETE FROM users WHERE id=#{id}")
     void delete(User user);
 
+    @Select("SELECT password FROM users WHERE username=#{username}")
+    String getPasswordByUsername(String username);
+
+    @Select("SELECT role FROM users WHERE username=#{username}")
+    String getRoleByUsername(String username);
+
 }

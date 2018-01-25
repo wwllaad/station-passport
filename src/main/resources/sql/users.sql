@@ -8,7 +8,7 @@ CREATE TABLE `users` (
   `role` VARCHAR(32) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-INSERT INTO users(username,password,email,phone,role) VALUES('Alexey','root','lao@gmail.com','102','ADMIN');
-INSERT INTO users(username,password,email,phone,role) VALUES('Vlad','root','bve@gmail.com','103','USER');
+INSERT INTO users(username,password,email,phone,role) VALUES('Alexey','root','lao@gmail.com','102','ROLE_ADMIN');
+INSERT INTO users(username,password,email,phone,role) VALUES('Vlad','root','bve@gmail.com','103','ROLE_USER');
 
 
