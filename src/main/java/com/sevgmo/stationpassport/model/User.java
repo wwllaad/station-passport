@@ -1,8 +1,7 @@
 package com.sevgmo.stationpassport.model;
 
-public class User {
+public class User extends AbstractId {
 
-    private int id;
     private String username;
     private String password;
     private String email;
@@ -12,12 +11,12 @@ public class User {
     @Override
     public String toString() {
         return "User{" +
-                "id=" + id +
-                ", username='" + username + '\'' +
+                "username='" + username + '\'' +
                 ", password='" + password + '\'' +
                 ", email='" + email + '\'' +
-                ", phone=" + phone +
+                ", phone='" + phone + '\'' +
                 ", role='" + role + '\'' +
+                ", id=" + id +
                 '}';
     }
 
@@ -30,14 +29,6 @@ public class User {
     }
 
     public User() {
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
     }
 
     public String getUsername() {
