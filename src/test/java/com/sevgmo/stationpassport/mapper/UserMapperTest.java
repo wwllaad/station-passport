@@ -9,6 +9,8 @@ import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.context.jdbc.SqlGroup;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import java.util.List;
+
 import static org.junit.Assert.*;
 
 @RunWith(SpringRunner.class)
@@ -24,6 +26,12 @@ public class UserMapperTest {
 
     @Test
     public void getAll() throws Exception {
+        List<User> users = userMapper.getAll();
+        User user1 = users.get(0);
+        User user2 = users.get(1);
+        assertNotNull(users);
+        assertEquals("Alexey",user1.getUsername());
+        assertEquals("Vlad", user2.getUsername());
     }
 
     @Test
