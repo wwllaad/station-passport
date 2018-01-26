@@ -29,20 +29,24 @@ public class UserService {
     }
 
     public List<User> getAllFromDB(){
+
         return userMapper.getAll();
     }
 
+    public User getUserById(int id){
+        User user = userMapper.getUserById(id);
+        return user;
+    }
+
     public void deleteUserFromDB(int id){
-        User user = new User();
-        user.setId(id);
-        userMapper.update(user);
+        userMapper.delete(id);
     }
 
     public void updateUserInDB(int id, String email, String phone){
         User user = new User();
         user.setId(id);
-        user.setEmail(email);
-        user.setPhone(phone);
+        user.setPhone(email);
+        user.setEmail(phone);
         userMapper.update(user);
     }
 

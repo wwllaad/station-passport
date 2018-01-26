@@ -24,7 +24,7 @@ public class StationPassportApplicationTests {
 	UserMapper userMapper;
 
 	@Test
-	public void addingToDB(){
+	public void testUserMapper_AddNewUser_testShouldAddNewUserToDB(){
 		User user = new User("test","pass","test@test.test","777","ROLE_USER");
 		userMapper.add(user);
 		String username = userMapper.getUsernameById(3);
@@ -32,7 +32,26 @@ public class StationPassportApplicationTests {
 	}
 
 	@Test
-	public void contextLoads() {
+	public void testUserMapper_UpdateUser_testShouldUpdateUserInDB(){
+		User user = new User();
+		user.setId(1);
+		user.setPhone("777");
+		user.setEmail("qqq");
+		userMapper.update(user);
+		assertEquals("777", userMapper.getUserById(1).getPhone());
+		assertEquals("qqq", userMapper.getUserById(1).getEmail());
+	}
+
+	@Test
+	public void testUserMapper_GetUserById_testShouldReturnUserByIdFromDB(){
+		assertEquals("Alexey", userMapper.getUserById(1).getUsername());
+	}
+
+	@Test
+	public void testUserMapper_DeleteUser_testShouldDeleteUserFromDB(){
+
+		userMapper.delete(2);
+		assertEquals(null, userMapper.getUsernameById(2));
 	}
 
 }
