@@ -5,6 +5,7 @@ import com.sevgmo.stationpassport.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
@@ -21,7 +22,7 @@ public class RestController {
         return userMapper.getAll();
     }
 
-    @GetMapping("/add")
+    @RequestMapping(method = RequestMethod.POST, value = "/add")
     private List<User> add(@RequestParam String username, String password, String email, String phone, String role) {
 
         User user = new User();
@@ -36,7 +37,7 @@ public class RestController {
         return userMapper.getAll();
     }
 
-    @GetMapping("/update")
+    @RequestMapping(method = RequestMethod.PATCH, value = "/update")
     private List<User> update(@RequestParam int id, String email, String phone) {
 
         User user = new User();
@@ -48,7 +49,7 @@ public class RestController {
         return userMapper.getAll();
     }
 
-    @GetMapping("/delete")
+    @RequestMapping(method = RequestMethod.DELETE, value = "/delete")
     private List<User> delete(@RequestParam int id) {
 
         User user = new User();
