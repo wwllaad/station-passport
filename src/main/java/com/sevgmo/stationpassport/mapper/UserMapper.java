@@ -2,9 +2,11 @@ package com.sevgmo.stationpassport.mapper;
 
 import com.sevgmo.stationpassport.model.User;
 import org.apache.ibatis.annotations.*;
+import org.springframework.stereotype.Component;
 
 import java.util.List;
 
+@Component
 @Mapper
 public interface UserMapper {
 
