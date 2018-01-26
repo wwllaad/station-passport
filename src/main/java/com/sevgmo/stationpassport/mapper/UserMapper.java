@@ -30,4 +30,7 @@ public interface UserMapper {
     @Select("SELECT role FROM users WHERE username=#{username}")
     String getRoleByUsername(String username);
 
+    @Select("SELECT username FROM users WHERE id=#{id}")
+    String getUsernameById(int id);
+
 }
