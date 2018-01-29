@@ -1,4 +1,4 @@
-package com.sevgmo.stationpassport.LoginTest;
+package com.sevgmo.stationpassport.login;
 
 import org.junit.AfterClass;
 import org.junit.Assert;

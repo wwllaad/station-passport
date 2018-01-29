@@ -18,33 +18,60 @@ public class RestController {
     private UserService userService;
 
     @GetMapping("/all")
-    private List<User> getAll() {
-        return userService.getAllFromDB();
+    private List<User> getAllUsersFromDB() {
+        return userService.getAllUsersFromDB();
+    }
+
+    @GetMapping("/user")
+    private User getUserById(@RequestParam int id){
+        return userService.getUserById(id);
     }
 
     @RequestMapping(method = RequestMethod.POST, value = "/add")
-    private List<User> add(@RequestParam String username, String password, String email, String phone, String role) {
-
-        userService.addUserToDB(username,password,email,phone,role);
-
-        return userService.getAllFromDB();
-    }
-
-    @RequestMapping(method = RequestMethod.PATCH, value = "/update")
-    private List<User> update(@RequestParam int id, String email, String phone) {
-
-        userService.updateUserInDB(id,email,phone);
-
-        return userService.getAllFromDB();
+    private void AddUserToDB(@RequestParam String username, String password, String email, String phone, String role){
+        userService.AddUserToDB(username,password,email,phone,role);
     }
 
     @RequestMapping(method = RequestMethod.DELETE, value = "/delete")
-    private List<User> delete(@RequestParam int id) {
-
+    private void deleteUserFromDB(@RequestParam int id){
         userService.deleteUserFromDB(id);
-
-        return userService.getAllFromDB();
     }
+
+    @RequestMapping(method = RequestMethod.PATCH, value = "/update")
+    private void updateUserInDB(@RequestParam int id, String email, String phone) {
+        userService.updateUserInDB(id, email, phone);
+    }
+
+
+
+
+
+
+
+
+//    @RequestMapping(method = RequestMethod.POST, value = "/add")
+//    private List<User> add(@RequestParam String username, String password, String email, String phone, String role) {
+//
+//        userService.addUserToDB(username,password,email,phone,role);
+//
+//        return userService.getAllFromDB();
+//    }
+//
+//    @RequestMapping(method = RequestMethod.PATCH, value = "/update")
+//    private List<User> update(@RequestParam int id, String email, String phone) {
+//
+//        userService.updateUserInDB(id,email,phone);
+//
+//        return userService.getAllFromDB();
+//    }
+//
+//    @RequestMapping(method = RequestMethod.DELETE, value = "/delete")
+//    private List<User> delete(@RequestParam int id) {
+//
+//        userService.deleteUserFromDB(id);
+//
+//        return userService.getAllFromDB();
+//    }
 
 }
 
