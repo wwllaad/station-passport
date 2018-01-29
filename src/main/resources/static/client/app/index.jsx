@@ -1,5 +1,6 @@
 import React from 'react';
 import {render} from 'react-dom';
-import MeteoApp from './MeteoApp.jsx';
+import UserView from './UserView.jsx';
+import MainView from './MainView.jsx';
 
-render(<MeteoApp />, document.getElementById('root'));
+render(<MainView />, document.getElementById('root'));
