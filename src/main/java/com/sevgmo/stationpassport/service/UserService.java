@@ -34,6 +34,10 @@ public class UserService {
         return sqlSession.selectOne("getRoleByUsername", username);
     }
 
+    public String  getUsernameById(int id){
+        return sqlSession.selectOne("getUsernameById", id);
+    }
+
     public void AddUserToDB(User user){
         sqlSession.insert("AddUserToDB", user);
     }
@@ -59,6 +63,7 @@ public class UserService {
         user.setEmail(phone);
         sqlSession.update("updateUserInDB", user);
     }
+
 }
 
 
