@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Navbar, NavItem, Nav, NavDropdown, MenuItem, Button } from "react-bootstrap";
 import UserView from './UserView.jsx'
-import StationsView from './StationsView.jsx'
+import StationsView from './StationView.jsx'
 import AppNavbar from './AppNavbar.jsx'
 
 
