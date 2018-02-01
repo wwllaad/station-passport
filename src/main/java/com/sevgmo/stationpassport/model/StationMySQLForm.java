@@ -10,24 +10,6 @@ public class StationMySQLForm extends AbstractEntity {
     private String customfieldsvalue_text_value;
     private int customfieldsvalue_numeric_value;
 
-    public StationMySQLForm(int id, String station_name, String section_name, int customfield_section_id, String customfield_name, String customfield_type, String customfieldsvalue_text_value, int customfieldsvalue_numeric_value) {
-        super(id);
-        this.station_name = station_name;
-        this.section_name = section_name;
-        this.customfield_section_id = customfield_section_id;
-        this.customfield_name = customfield_name;
-        this.customfield_type = customfield_type;
-        this.customfieldsvalue_text_value = customfieldsvalue_text_value;
-        this.customfieldsvalue_numeric_value = customfieldsvalue_numeric_value;
-    }
-
-    public StationMySQLForm(int id) {
-        super(id);
-    }
-
-    public StationMySQLForm() {
-    }
-
     public String getStation_name() {
         return station_name;
     }
@@ -82,5 +64,47 @@ public class StationMySQLForm extends AbstractEntity {
 
     public void setCustomfieldsvalue_numeric_value(int customfieldsvalue_numeric_value) {
         this.customfieldsvalue_numeric_value = customfieldsvalue_numeric_value;
+    }
+
+    public StationMySQLForm(int id) {
+        super(id);
+    }
+
+    public StationMySQLForm() {
+    }
+
+    public StationMySQLForm(int id, String station_name, String section_name, int customfield_section_id, String customfield_name, String customfield_type, String customfieldsvalue_text_value, int customfieldsvalue_numeric_value) {
+        super(id);
+        this.station_name = station_name;
+        this.section_name = section_name;
+        this.customfield_section_id = customfield_section_id;
+        this.customfield_name = customfield_name;
+        this.customfield_type = customfield_type;
+        this.customfieldsvalue_text_value = customfieldsvalue_text_value;
+        this.customfieldsvalue_numeric_value = customfieldsvalue_numeric_value;
+    }
+
+    public StationMySQLForm(String station_name, String section_name, int customfield_section_id, String customfield_name, String customfield_type, String customfieldsvalue_text_value, int customfieldsvalue_numeric_value) {
+        this.station_name = station_name;
+        this.section_name = section_name;
+        this.customfield_section_id = customfield_section_id;
+        this.customfield_name = customfield_name;
+        this.customfield_type = customfield_type;
+        this.customfieldsvalue_text_value = customfieldsvalue_text_value;
+        this.customfieldsvalue_numeric_value = customfieldsvalue_numeric_value;
+    }
+
+    @Override
+    public String toString() {
+        return "StationMySQLForm{" +
+                "station_name='" + station_name + '\'' +
+                ", section_name='" + section_name + '\'' +
+                ", customfield_section_id=" + customfield_section_id +
+                ", customfield_name='" + customfield_name + '\'' +
+                ", customfield_type='" + customfield_type + '\'' +
+                ", customfieldsvalue_text_value='" + customfieldsvalue_text_value + '\'' +
+                ", customfieldsvalue_numeric_value=" + customfieldsvalue_numeric_value +
+                ", id=" + id +
+                '}';
     }
 }
