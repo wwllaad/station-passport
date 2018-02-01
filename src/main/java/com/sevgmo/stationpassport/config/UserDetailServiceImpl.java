@@ -1,7 +1,5 @@
 package com.sevgmo.stationpassport.config;
 
-
-
 import com.sevgmo.stationpassport.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.authority.AuthorityUtils;

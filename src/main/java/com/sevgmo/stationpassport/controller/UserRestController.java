@@ -41,37 +41,5 @@ public class UserRestController {
     private void updateUserInDB(@RequestParam int id, String email, String phone) {
         userService.updateUserInDB(id, email, phone);
     }
-
-
-
-
-
-
-
-
-//    @RequestMapping(method = RequestMethod.POST, value = "/add")
-//    private List<User> add(@RequestParam String username, String password, String email, String phone, String role) {
-//
-//        userService.addUserToDB(username,password,email,phone,role);
-//
-//        return userService.getAllFromDB();
-//    }
-//
-//    @RequestMapping(method = RequestMethod.PATCH, value = "/update")
-//    private List<User> update(@RequestParam int id, String email, String phone) {
-//
-//        userService.updateUserInDB(id,email,phone);
-//
-//        return userService.getAllFromDB();
-//    }
-//
-//    @RequestMapping(method = RequestMethod.DELETE, value = "/delete")
-//    private List<User> delete(@RequestParam int id) {
-//
-//        userService.deleteUserFromDB(id);
-//
-//        return userService.getAllFromDB();
-//    }
-
 }
 

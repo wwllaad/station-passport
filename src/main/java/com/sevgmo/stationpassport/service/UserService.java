@@ -63,48 +63,5 @@ public class UserService {
         user.setEmail(phone);
         sqlSession.update("updateUserInDB", user);
     }
-
 }
 
-
-
-
-//    @Autowired
-//    private UserMapper userMapper;
-//
-//    public void addUserToDB(User user){
-//        userMapper.add(user);
-//    }
-//
-//    public void addUserToDB(String username, String password, String email, String phone, String role){
-//
-//        User user = new User();
-//        user.setUsername(username);
-//        user.setPassword(password);
-//        user.setEmail(email);
-//        user.setPhone(phone);
-//        user.setRole(role);
-//        userMapper.add(user);
-//    }
-//
-//    public List<User> getAllFromDB(){
-//
-//        return userMapper.getAll();
-//    }
-//
-//    public User getUserById(int id){
-//        User user = userMapper.getUserById(id);
-//        return user;
-//    }
-//
-//    public void deleteUserFromDB(int id){
-//        userMapper.delete(id);
-//    }
-//
-//    public void updateUserInDB(int id, String email, String phone){
-//        User user = new User();
-//        user.setId(id);
-//        user.setPhone(email);
-//        user.setEmail(phone);
-//        userMapper.update(user);
-//    }
