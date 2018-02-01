@@ -5,6 +5,13 @@ import java.util.Objects;
 public abstract class AbstractEntity {
     protected int id;
 
+    public AbstractEntity(int id) {
+        this.id = id;
+    }
+
+    public AbstractEntity() {
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

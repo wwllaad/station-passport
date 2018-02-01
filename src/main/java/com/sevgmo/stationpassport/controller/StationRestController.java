@@ -1,7 +1,9 @@
 package com.sevgmo.stationpassport.controller;
 
 import com.sevgmo.stationpassport.model.Station;
-import com.sevgmo.stationpassport.service.StationService;
+import com.sevgmo.stationpassport.model.StationMySQLForm;
+import com.sevgmo.stationpassport.service.StationMySQLFormService;
+import com.sevgmo.stationpassport.service.StationParser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -16,15 +18,19 @@ import java.util.List;
 public class StationRestController {
 
     @Autowired
-    StationService stationService;
+    StationMySQLFormService stationMySQLFormService;
 
-    @GetMapping("/station")
-    private List<Station> getStationById(@RequestParam int id){
-        return stationService.getStationById(id);
+    @Autowired
+    StationParser stationParser;
+
+    @GetMapping("/sql")
+    private List<StationMySQLForm> getStationMySQLForm(@RequestParam int id){
+        return stationMySQLFormService.getStationById(id);
     }
 
-    @GetMapping("/all")
-    private List<Station> getAllStations(){
-        return stationService.getAllStations();
-}
+    @GetMapping("/api")
+    private Station getStation(@RequestParam int id){
+        return stationParser.parse(stationMySQLFormService.getStationById(id));
+    }
+
 }
