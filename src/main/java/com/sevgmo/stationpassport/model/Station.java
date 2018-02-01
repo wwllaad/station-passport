@@ -1,6 +1,6 @@
 package com.sevgmo.stationpassport.model;
 
-public class Station extends AbstractId {
+public class Station extends AbstractEntity {
 
     private String station_name;
     private String section_name;

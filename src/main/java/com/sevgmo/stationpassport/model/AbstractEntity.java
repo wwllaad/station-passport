@@ -2,7 +2,7 @@ package com.sevgmo.stationpassport.model;
 
 import java.util.Objects;
 
-public abstract class AbstractId {
+public abstract class AbstractEntity {
     protected int id;
 
     @Override
@@ -10,7 +10,7 @@ public abstract class AbstractId {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        AbstractId that = (AbstractId) o;
+        AbstractEntity that = (AbstractEntity) o;
 
         return id == that.id;
     }
@@ -22,7 +22,7 @@ public abstract class AbstractId {
 
     @Override
     public String toString() {
-        return "AbstractId{" +
+        return "AbstractEntity{" +
                 "id=" + id +
                 '}';
     }
