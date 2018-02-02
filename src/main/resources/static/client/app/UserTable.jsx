@@ -9,7 +9,8 @@ class UserTable extends React.Component {
     }
 
     render() {
-        var users = this.props.users.map(user =>
+
+        let users = this.props.users.map(user =>
             <User key={user.id} user={user}/>
         );
         return (

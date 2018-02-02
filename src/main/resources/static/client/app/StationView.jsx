@@ -15,7 +15,7 @@ class StationView extends React.Component {
 
 
     loadStationsFromServer() {
-        fetch('http://localhost:8080/stations/all',
+        fetch('http://localhost:8080/st/api?id=1',
             {credentials: 'same-origin'})
             .then((response) => response.json())
             .then((responseData) => {

@@ -1,43 +1,29 @@
-
 import React, { Component } from 'react';
-// import "bootstrap/dist/css/bootstrap.css"
-
-import Station from './Station.jsx'
+import Section from './Section.jsx'
 
 class StationTable extends React.Component {
     constructor(props) {
         super(props);
-        // this.setStationName = this.setStationName.bind(this);
-        // this.state = {
-        //     station_name: null
-        // };
     }
 
-    // setStationName(stationName){
-    //     this.setState({
-    //         station_name: stationName
-    //     });
-    // }
-
     render() {
-        var stations = this.props.stations.map(station =>
-            <Station key={station.id} station={station}/>
+
+        while(!this.props.stations.section){
+            return(
+                <div>Loading....</div>
+            )
+        }
+
+        let stationName = this.props.stations.name;
+        let stations = this.props.stations.section.map(section =>
+            <Section key={section.id} section={section}/>
         );
         return (
             <div>
-                <table className="table table-striped">
-                    <thead>
-                    <tr>
-                        <th>Станция</th>
-                        <th>Заголовок</th>
-                        <th>Информационное поле</th>
-                        <th>Тип данных</th>
-                        <th>Текстовые значения</th>
-                        <th>Числовые значения</th>
-                    </tr>
-                    </thead>
-                    <tbody>{stations}</tbody>
-                </table>
+                <h3>{stationName}</h3>
+
+                {stations}
+
             </div>
         );
     }
