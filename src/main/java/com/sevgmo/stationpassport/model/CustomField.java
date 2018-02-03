@@ -2,7 +2,7 @@ package com.sevgmo.stationpassport.model;
 
 public class CustomField extends AbstractEntity {
 
-    private int section_id;
+    private int sectionId;
     private String name;
     private String type;
 
@@ -16,12 +16,12 @@ public class CustomField extends AbstractEntity {
 
 
 
-    public int getSection_id() {
-        return section_id;
+    public int getSectionId() {
+        return sectionId;
     }
 
-    public void setSection_id(int section_id) {
-        this.section_id = section_id;
+    public void setSectionId(int sectionId) {
+        this.sectionId = sectionId;
     }
 
     public String getName() {
@@ -40,15 +40,15 @@ public class CustomField extends AbstractEntity {
         this.type = type;
     }
 
-    public CustomField(int id, int section_id, String name, String type) {
+    public CustomField(int id, int sectionId, String name, String type) {
         super(id);
-        this.section_id = section_id;
+        this.sectionId = sectionId;
         this.name = name;
         this.type = type;
     }
 
-    public CustomField(int section_id, String name, String type) {
-        this.section_id = section_id;
+    public CustomField(int sectionId, String name, String type) {
+        this.sectionId = sectionId;
         this.name = name;
         this.type = type;
     }

@@ -5,6 +5,25 @@ public class CustomFieldValue extends AbstractEntity {
     private String textValue;
     private Integer intValue;
 
+    public Station getStation() {
+        return station;
+    }
+
+    public void setStation(Station station) {
+        this.station = station;
+    }
+
+    public CustomField getCustomField() {
+        return customField;
+    }
+
+    public void setCustomField(CustomField customField) {
+        this.customField = customField;
+    }
+
+    private Station station;
+    private CustomField customField;
+
     public String getTextValue() {
         return textValue;
     }

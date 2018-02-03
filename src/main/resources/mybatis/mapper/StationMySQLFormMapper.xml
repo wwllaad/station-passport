@@ -9,6 +9,11 @@
     </resultMap>
 
     <select id="getStationById" resultMap="station">
+        SELECT s.station_id, s.station_name FROM stations s
+    </select>
+
+
+    <select id="getStationById" resultMap="station">
         SELECT s.station_id, s.station_name, se.section_name,cf.customfield_section_id,
     cf.customfield_name, cf.customfield_type, cf.customfield_id,
     cfv.customfieldsvalue_text_value, cfv.customfieldsvalue_numeric_value
@@ -16,7 +21,7 @@
       FROM stations s
       INNER JOIN customfieldsvalues cfv ON s.station_id = cfv.customfieldsvalue_station_id
       INNER JOIN customfields cf ON cfv.customfieldsvalue_customfield_id = cf.customfield_id
-      INNER JOIN sections se ON se.section_id = cf.customfield_section_id
+      INNER JOIN sections se ON se.sectionId = cf.customfield_section_id
       WHERE s.station_id=#{id}
 
     </select>

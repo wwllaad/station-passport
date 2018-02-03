@@ -83,7 +83,7 @@ public class StationParser {
             }
 
 
-            customField.setSection_id(stationMySQLForms.get(i).getCustomfield_section_id());
+            customField.setSectionId(stationMySQLForms.get(i).getCustomfield_section_id());
             customField.setName(stationMySQLForms.get(i).getCustomfield_name());
             customField.setType(stationMySQLForms.get(i).getCustomfield_type());
             customFieldList.add(customField);

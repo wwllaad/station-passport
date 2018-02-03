@@ -8,7 +8,7 @@ public class Section extends AbstractEntity{
     private List<CustomField> customFields;
     private List<CustomFieldValue> customFieldValues;
 
-    public String getSection_name() {
+    public String getName() {
         return section_name;
     }
 

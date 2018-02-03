@@ -21,11 +21,11 @@ CREATE TABLE `stations` (
 
 DROP TABLE IF EXISTS `sections`;
 CREATE TABLE `sections` (
-  `section_id` INT NOT NULL AUTO_INCREMENT,
+  `sectionId` INT NOT NULL AUTO_INCREMENT,
   `section_name` VARCHAR(45) NOT NULL,
   `parent_section_id` VARCHAR(45) NOT NULL,
-  PRIMARY KEY (`section_id`),
-  UNIQUE INDEX `section_id_UNIQUE` (`section_id` ASC))
+  PRIMARY KEY (`sectionId`),
+  UNIQUE INDEX `section_id_UNIQUE` (`sectionId` ASC))
   ENGINE = InnoDB
   DEFAULT CHARACTER SET = utf8;
 
@@ -41,7 +41,7 @@ CREATE TABLE `customfields` (
   INDEX `fk_section_id_idx` (`customfield_section_id` ASC),
   CONSTRAINT `fk_section_id`
   FOREIGN KEY (`customfield_section_id`)
-  REFERENCES `sections` (`section_id`)
+  REFERENCES `sections` (`sectionId`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
   ENGINE = InnoDB
