@@ -1,4 +1,7 @@
 import React, { Component } from 'react';
+import FieldName from './FieldName.jsx';
+import FieldValue from './FieldValue.jsx';
+
 
 class Section extends React.Component {
     constructor(props) {
@@ -8,18 +11,25 @@ class Section extends React.Component {
 
     render() {
 
+        let sectionName = this.props.section.section_name;
+
+        let fieldName = this.props.section.customFields.map(field =>
+            <FieldName key={field.id} field={field}/>);
+        let fieldValue = this.props.section.customFieldValues.map(field =>
+            <FieldValue key={field.id} field={field}/>);
+
         return (
             <table className="table table-striped">
                 <thead>
                     <tr>
-                        <th>{this.props.section.section_name}</th>
+                        <th>{sectionName}</th>
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>{this.props.section.customfield_name}</tr>
-                    <tr>{this.props.section.customfield_type}</tr>
-                    <tr>{this.props.section.customfieldsvalue_text_value}</tr>
-                    <tr>{this.props.section.customfieldsvalue_numeric_value}</tr>
+                    <tr>
+                        <td>{fieldName}</td>
+                        <td>{fieldValue}</td>
+                    </tr>
                 </tbody>
             </table>
     );

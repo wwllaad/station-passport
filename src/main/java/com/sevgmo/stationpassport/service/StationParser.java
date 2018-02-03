@@ -1,8 +1,6 @@
 package com.sevgmo.stationpassport.service;
 
-import com.sevgmo.stationpassport.model.Section;
-import com.sevgmo.stationpassport.model.Station;
-import com.sevgmo.stationpassport.model.StationMySQLForm;
+import com.sevgmo.stationpassport.model.*;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
@@ -13,22 +11,31 @@ import java.util.List;
 public class StationParser {
 
     private Station station;
-
     private List<Section> sections;
-
     private Section section;
-    private List<Integer> customfield_section_id;
-    private List<String> customfield_name;
-    private List<String> customfield_type;
-    private List<String> customfieldsvalue_text_value;
-    private List<Integer> customfieldsvalue_numeric_value;
+
+    private CustomField customField;
+    private List<CustomField> customFieldList;
+    private CustomFieldValue customFieldValue;
+    private List<CustomFieldValue> customFieldValueList;
+
 
     public Station parse(List<StationMySQLForm> stationMySQLForms){
 
         int id = stationMySQLForms.get(0).getId();
         String stationName = stationMySQLForms.get(0).getStation_name();
 
-        sectionFieldsInit();
+        customFieldsInit();
+
+        customField.setId(stationMySQLForms.get(0).getCustomfield_id());
+        customField.setName(stationMySQLForms.get(0).getCustomfield_name());
+        customField.setType(stationMySQLForms.get(0).getCustomfield_type());
+
+        customFieldValue.setId(1);
+        customFieldValue.setTextValue(stationMySQLForms.get(0).getCustomfieldsvalue_text_value());
+        customFieldValue.setIntValue(stationMySQLForms.get(0).getCustomfieldsvalue_numeric_value());
+
+        int customFieldCounter = 1;
 
         section = new Section();
         section.setSection_name(stationMySQLForms.get(0).getSection_name());
@@ -36,6 +43,7 @@ public class StationParser {
         sections = new ArrayList<>();
         sections.add(section);
         int sectionCounter = 1;
+
 
 
         for (int i=0;i<stationMySQLForms.size();i++) {
@@ -47,25 +55,45 @@ public class StationParser {
 
                 sectionCounter++;
                 String sectionName = stationMySQLForms.get(i).getSection_name();
-                sectionFieldsInit();
+                customFieldsInit();
 
-                section = new Section(sectionCounter,sectionName,customfield_section_id,customfield_name,customfield_type,customfieldsvalue_text_value,customfieldsvalue_numeric_value);
+                section = new Section(sectionCounter,sectionName,customFieldList, customFieldValueList);
 
                 sections.add(section);
             }
 
+            int customFieldIdFromSQL = stationMySQLForms.get(i).getCustomfield_id();
+            int customFieldId = customField.getId();
 
-            customfield_section_id.add(stationMySQLForms.get(i).getCustomfield_section_id());
-            customfield_name.add(stationMySQLForms.get(i).getCustomfield_name());
-            customfield_type.add(stationMySQLForms.get(i).getCustomfield_type());
-            customfieldsvalue_text_value.add(stationMySQLForms.get(i).getCustomfieldsvalue_text_value());
-            customfieldsvalue_numeric_value.add(stationMySQLForms.get(i).getCustomfieldsvalue_numeric_value());
+            if (customFieldId != customFieldIdFromSQL){
 
-            section.setCustomfield_section_id(customfield_section_id);
-            section.setCustomfield_name(customfield_name);
-            section.setCustomfield_type(customfield_type);
-            section.setCustomfieldsvalue_text_value(customfieldsvalue_text_value);
-            section.setCustomfieldsvalue_numeric_value(customfieldsvalue_numeric_value);
+                customFieldCounter++;
+
+                int customField_Id = stationMySQLForms.get(i).getCustomfield_id();
+                int customFieldSectionId = stationMySQLForms.get(i).getCustomfield_section_id();
+                String customFieldName = stationMySQLForms.get(i).getCustomfield_name();
+                String customFieldType = stationMySQLForms.get(i).getCustomfield_type();
+
+                customField = new CustomField(customField_Id,customFieldSectionId,customFieldName,customFieldType);
+
+                String customFieldTextData = stationMySQLForms.get(i).getCustomfieldsvalue_text_value();
+                int customFieldNumericData = stationMySQLForms.get(i).getCustomfieldsvalue_numeric_value();
+
+                customFieldValue = new CustomFieldValue(customField_Id,customFieldTextData,customFieldNumericData);
+            }
+
+
+            customField.setSection_id(stationMySQLForms.get(i).getCustomfield_section_id());
+            customField.setName(stationMySQLForms.get(i).getCustomfield_name());
+            customField.setType(stationMySQLForms.get(i).getCustomfield_type());
+            customFieldList.add(customField);
+            customFieldValue.setTextValue(stationMySQLForms.get(i).getCustomfieldsvalue_text_value());
+            customFieldValue.setIntValue(stationMySQLForms.get(i).getCustomfieldsvalue_numeric_value());
+            customFieldValueList.add(customFieldValue);
+
+            section.setCustomFields(customFieldList);
+            section.setCustomFieldValues(customFieldValueList);
+
         }
 
 
@@ -75,12 +103,13 @@ public class StationParser {
 
     }
 
-    private void sectionFieldsInit(){
-        customfield_name = new ArrayList<>();
-        customfield_section_id = new ArrayList<>();
-        customfield_type = new ArrayList<>();
-        customfieldsvalue_text_value = new ArrayList<>();
-        customfieldsvalue_numeric_value = new ArrayList<>();
+    private void customFieldsInit(){
+
+        customField = new CustomField();
+        customFieldValue = new CustomFieldValue();
+        customFieldList = new ArrayList<>();
+        customFieldValueList = new ArrayList<>();
+
     }
 
 }

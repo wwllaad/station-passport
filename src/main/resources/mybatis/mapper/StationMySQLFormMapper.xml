@@ -10,7 +10,7 @@
 
     <select id="getStationById" resultMap="station">
         SELECT s.station_id, s.station_name, se.section_name,cf.customfield_section_id,
-    cf.customfield_name, cf.customfield_type,
+    cf.customfield_name, cf.customfield_type, cf.customfield_id,
     cfv.customfieldsvalue_text_value, cfv.customfieldsvalue_numeric_value
 
       FROM stations s

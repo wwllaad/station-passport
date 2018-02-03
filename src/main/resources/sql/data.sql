@@ -2,7 +2,7 @@ INSERT INTO users(username,password,email,phone,role) VALUES('Alexey','root','la
 INSERT INTO users(username,password,email,phone,role) VALUES('Vlad','root','bve@gmail.com','103','ROLE_USER');
 
 INSERT INTO stations (station_name) VALUE ('Черноморское');
-INSERT INTO stations (station_name) VALUE ('Черноморское');
+INSERT INTO stations (station_name) VALUE ('Мысовое');
 INSERT INTO stations (station_name) VALUE ('Раздольное');
 INSERT INTO stations (station_name) VALUE ('Опасное');
 
