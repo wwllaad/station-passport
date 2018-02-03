@@ -33,8 +33,8 @@ DROP TABLE IF EXISTS `customfields`;
 CREATE TABLE `customfields` (
   `customfield_id` INT NOT NULL AUTO_INCREMENT,
   `customfield_section_id` INT NOT NULL,
-  `customfield_type` VARCHAR(45) NOT NULL,
-  `customfield_name` VARCHAR(45) NOT NULL,
+  `customfield_type` VARCHAR(256) NOT NULL,
+  `customfield_name` VARCHAR(256) NOT NULL,
   `customfield_order` INT NOT NULL,
   UNIQUE INDEX `customfield_id_UNIQUE` (`customfield_id` ASC),
   PRIMARY KEY (`customfield_id`),
