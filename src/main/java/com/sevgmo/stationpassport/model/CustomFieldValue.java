@@ -2,27 +2,26 @@ package com.sevgmo.stationpassport.model;
 
 public class CustomFieldValue extends AbstractEntity {
 
+    private Integer customFieldId;
+    private Integer stationId;
     private String textValue;
     private Integer intValue;
 
-    public Station getStation() {
-        return station;
+    public Integer getCustomFieldId() {
+        return customFieldId;
     }
 
-    public void setStation(Station station) {
-        this.station = station;
+    public void setCustomFieldId(Integer customFieldId) {
+        this.customFieldId = customFieldId;
     }
 
-    public CustomField getCustomField() {
-        return customField;
+    public Integer getStationId() {
+        return stationId;
     }
 
-    public void setCustomField(CustomField customField) {
-        this.customField = customField;
+    public void setStationId(Integer stationId) {
+        this.stationId = stationId;
     }
-
-    private Station station;
-    private CustomField customField;
 
     public String getTextValue() {
         return textValue;
@@ -47,13 +46,17 @@ public class CustomFieldValue extends AbstractEntity {
     public CustomFieldValue() {
     }
 
-    public CustomFieldValue(int id, String textValue, Integer intValue) {
+    public CustomFieldValue(int id, Integer customFieldId, Integer stationId, String textValue, Integer intValue) {
         super(id);
+        this.customFieldId = customFieldId;
+        this.stationId = stationId;
         this.textValue = textValue;
         this.intValue = intValue;
     }
 
-    public CustomFieldValue(String textValue, Integer intValue) {
+    public CustomFieldValue(Integer customFieldId, Integer stationId, String textValue, Integer intValue) {
+        this.customFieldId = customFieldId;
+        this.stationId = stationId;
         this.textValue = textValue;
         this.intValue = intValue;
     }

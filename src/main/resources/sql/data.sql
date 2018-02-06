@@ -7,9 +7,9 @@ INSERT INTO stations (station_name) VALUE ('Раздольное');
 INSERT INTO stations (station_name) VALUE ('Опасное');
 
 
-INSERT INTO sections (section_name, parent_section_id) VALUES ('Программа работы', 'NULL' );
-INSERT INTO sections (section_name, parent_section_id) VALUES ('Штат', 'NULL' );
-INSERT INTO sections (section_name, parent_section_id) VALUES ('Приборы', 'NULL' );
+INSERT INTO sections (section_name, parent_section_id) VALUES ('Программа работы', 0 );
+INSERT INTO sections (section_name, parent_section_id) VALUES ('Штат', 0 );
+INSERT INTO sections (section_name, parent_section_id) VALUES ('Приборы', 0 );
 
 INSERT INTO customfields (customfield_section_id, customfield_type, customfield_name, customfield_order) VALUES
   (1, 'TEXT', 'Наблюдение за высотой волны',1);

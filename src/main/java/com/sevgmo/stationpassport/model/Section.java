@@ -4,32 +4,23 @@ import java.util.List;
 
 public class Section extends AbstractEntity{
 
-    private String section_name;
-    private List<CustomField> customFields;
-    private List<CustomFieldValue> customFieldValues;
+    private String name;
+    private Integer parentSectionId;
 
     public String getName() {
-        return section_name;
+        return name;
     }
 
-    public void setSection_name(String section_name) {
-        this.section_name = section_name;
+    public void setName(String name) {
+        this.name = name;
     }
 
-    public List<CustomField> getCustomFields() {
-        return customFields;
+    public Integer getParentSectionId() {
+        return parentSectionId;
     }
 
-    public void setCustomFields(List<CustomField> customFields) {
-        this.customFields = customFields;
-    }
-
-    public List<CustomFieldValue> getCustomFieldValues() {
-        return customFieldValues;
-    }
-
-    public void setCustomFieldValues(List<CustomFieldValue> customFieldValues) {
-        this.customFieldValues = customFieldValues;
+    public void setParentSectionId(Integer parentSectionId) {
+        this.parentSectionId = parentSectionId;
     }
 
     public Section(int id) {
@@ -39,16 +30,14 @@ public class Section extends AbstractEntity{
     public Section() {
     }
 
-    public Section(int id, String section_name, List<CustomField> customFields, List<CustomFieldValue> customFieldValues) {
+    public Section(int id, String name, Integer parentSectionId) {
         super(id);
-        this.section_name = section_name;
-        this.customFields = customFields;
-        this.customFieldValues = customFieldValues;
+        this.name = name;
+        this.parentSectionId = parentSectionId;
     }
 
-    public Section(String section_name, List<CustomField> customFields, List<CustomFieldValue> customFieldValues) {
-        this.section_name = section_name;
-        this.customFields = customFields;
-        this.customFieldValues = customFieldValues;
+    public Section(String name, Integer parentSectionId) {
+        this.name = name;
+        this.parentSectionId = parentSectionId;
     }
 }

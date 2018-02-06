@@ -8,6 +8,9 @@
     </typeAliases>
     <mappers>
         <mapper resource="mybatis/mapper/UserMapper.xml"/>
-        <mapper resource="mybatis/mapper/StationMySQLFormMapper.xml"/>
+        <mapper resource="mybatis/mapper/CustomField.xml"/>
+        <mapper resource="mybatis/mapper/Station.xml"/>
+        <mapper resource="mybatis/mapper/Section.xml"/>
+        <mapper resource="mybatis/mapper/CustomFieldValue.xml"/>
     </mappers>
 </configuration>

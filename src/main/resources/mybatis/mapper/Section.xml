@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="mybatis.mapper.StationMapper">
+
+    <resultMap id="sections" type="com.sevgmo.stationpassport.model.Section">
+        <id property="id" column="section_id"/>
+        <result property="name" column="section_name"/>
+        <result property="parentSectionId" column="parent_section_id"/>
+
+    </resultMap>
+
+    <select id="getSectionFromDBById" parameterType="java.lang.Integer" resultMap="sections">
+        SELECT * FROM sections WHERE section_id=#{id}
+    </select>
+
+</mapper>
