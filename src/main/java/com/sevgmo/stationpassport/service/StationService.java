@@ -115,10 +115,11 @@ public class StationService {
 
             int sectionId = sectionDTO.getId();
 
+            //sectionId - unique
             if(sectionId != sectionApiDTOIdCounter){
 
-               tempCustomFieldDTOList = new ArrayList<>();
-               tempCustomFieldValueDTOList = new ArrayList<>();
+             tempCustomFieldDTOList = new ArrayList<>();
+             tempCustomFieldValueDTOList = new ArrayList<>();
             }
 
             for (CustomFieldDTO customFieldDTO : customFieldDTOList){

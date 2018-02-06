@@ -11,11 +11,11 @@ class Section extends React.Component {
 
     render() {
 
-        let sectionName = this.props.section.section_name;
+        let sectionName = this.props.section.name;
 
-        let fieldName = this.props.section.customFields.map(field =>
+        let fieldName = this.props.section.customFieldDTOList.map(field =>
             <FieldName key={field.id} field={field}/>);
-        let fieldValue = this.props.section.customFieldValues.map(field =>
+        let fieldValue = this.props.section.customFieldValueDTOList.map(field =>
             <FieldValue key={field.id} field={field}/>);
 
         return (

@@ -8,14 +8,14 @@ class StationTable extends React.Component {
 
     render() {
 
-        while(!this.props.stations.section){
+        while(!this.props.stations.sections){
             return(
                 <div>Loading....</div>
             )
         }
 
         let stationName = this.props.stations.name;
-        let sections = this.props.stations.section.map(section =>
+        let sections = this.props.stations.sections.map(section =>
             <Section key={section.id} section={section}/>
         );
         return (
