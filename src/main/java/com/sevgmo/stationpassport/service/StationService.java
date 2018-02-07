@@ -138,7 +138,8 @@ public class StationService {
             }
 
             String name = sectionDTO.getName();
-            sectionApiFormDTO = new SectionApiFormDTO(name, tempCustomFieldDTOList, tempCustomFieldValueDTOList);
+            int sectionApiFormDTOId = sectionDTO.getId();
+            sectionApiFormDTO = new SectionApiFormDTO(sectionApiFormDTOId,name, tempCustomFieldDTOList, tempCustomFieldValueDTOList);
             sectionApiFormDTOList.add(sectionApiFormDTO);
 
         }

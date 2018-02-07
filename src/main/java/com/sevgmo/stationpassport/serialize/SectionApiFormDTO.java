@@ -10,7 +10,8 @@ public class SectionApiFormDTO extends AbstractEntity {
     private List<CustomFieldDTO> customFieldDTOList;
     private List<CustomFieldValueDTO> customFieldValueDTOList;
 
-    public SectionApiFormDTO(String name, List<CustomFieldDTO> customFields, List<CustomFieldValueDTO> customFieldValues){
+    public SectionApiFormDTO(int id, String name, List<CustomFieldDTO> customFields, List<CustomFieldValueDTO> customFieldValues){
+        this.id = id;
         this.name = name;
         this.customFieldDTOList = customFields;
         this.customFieldValueDTOList = customFieldValues;
