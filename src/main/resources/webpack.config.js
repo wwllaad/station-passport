@@ -11,17 +11,23 @@ var config = {
         filename: 'bundle.js'
     },
     module : {
-        loaders : [
+        rules : [
             {
                 test : /\.jsx?/,
                 include : APP_DIR,
-                loader : 'babel-loader'
+                use : 'babel-loader'
             },
             {
                 test: /\.css$/,
                 use: [
-                    { loader: "style-loader" },
-                    { loader: "css-loader" }
+                    "style-loader",
+                    "css-loader"
+                ]
+            },
+            {
+                test: /\.(png|svg|jpg|gif)$/,
+                use: [
+                   "file-loader"
                 ]
             }
         ]

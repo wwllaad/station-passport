@@ -5,29 +5,31 @@ class StationView extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            stations: []
+            station: []
         };
     }
 
     componentDidMount() {
-        this.loadStationsFromServer();
+        this.loadStationFromServer();
     }
 
 
-    loadStationsFromServer() {
-        fetch('http://localhost:8080/st/api?id=2',
+    loadStationFromServer() {
+        let stationId = this.props.match.params.id;
+
+        fetch('http://localhost:8080/st/api?id='+stationId,
             {credentials: 'same-origin'})
             .then((response) => response.json())
             .then((responseData) => {
                 this.setState({
-                    stations: responseData,
+                    station: responseData,
                 });
             });
     }
     render() {
         return (
             <div>
-                <StationTable stations={this.state.stations}/>
+                <StationTable station={this.state.station}/>
             </div>
         );
     }

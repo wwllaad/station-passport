@@ -19,7 +19,7 @@ public class StationRestController {
     private StationService stationService;
 
 
-    @GetMapping("/allNames")
+    @GetMapping("/getAllStations")
     private List<StationDTO> getAllStationsDTOFromDB()
     {
         return stationService.getAllStationsDTOFromDB();

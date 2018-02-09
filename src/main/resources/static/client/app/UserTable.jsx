@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-// import "bootstrap/dist/css/bootstrap.css"
 
 import User from './User.jsx'
 
