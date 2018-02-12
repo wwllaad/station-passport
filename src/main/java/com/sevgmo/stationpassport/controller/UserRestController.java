@@ -18,8 +18,8 @@ public class UserRestController {
     private UserService userService;
 
     @GetMapping("/all")
-    private List<User> getAllUsersFromDB() {
-        return userService.getAllUsersFromDB();
+    private List<User> getAllUsers() {
+        return userService.getAllUsers();
     }
 
     @GetMapping("/user")
@@ -28,18 +28,18 @@ public class UserRestController {
     }
 
     @RequestMapping(method = RequestMethod.POST, value = "/add")
-    private void AddUserToDB(@RequestParam String username, String password, String email, String phone, String role){
-        userService.AddUserToDB(username,password,email,phone,role);
+    private void AddUser(@RequestParam String username, String password, String email, String phone, String role){
+        userService.AddUser(username,password,email,phone,role);
     }
 
     @RequestMapping(method = RequestMethod.DELETE, value = "/delete")
-    private void deleteUserFromDB(@RequestParam int id){
-        userService.deleteUserFromDB(id);
+    private void deleteUser(@RequestParam int id){
+        userService.deleteUser(id);
     }
 
     @RequestMapping(method = RequestMethod.PATCH, value = "/update")
-    private void updateUserInDB(@RequestParam int id, String email, String phone) {
-        userService.updateUserInDB(id, email, phone);
+    private void updateUser(@RequestParam int id, String email, String phone) {
+        userService.updateUser(id, email, phone);
     }
 }
 

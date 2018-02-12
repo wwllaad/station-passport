@@ -23,8 +23,8 @@ public class StationService {
     }
 
     @JsonSerialize
-    public List<StationDTO> getAllStationsDTOFromDB(){
-        List<Station> stations = sqlSession.selectList("getAllStationsFromDB");
+    public List<StationDTO> getAllStationsDTO(){
+        List<Station> stations = sqlSession.selectList("getAllStations");
         List<StationDTO> stationDTOList = new ArrayList<>();
         for(Station station: stations ){
             StationDTO stationDTO = new StationDTO(station);
@@ -34,24 +34,24 @@ public class StationService {
     }
 
     @JsonSerialize
-    public StationDTO getStationDTOFromDBById(int id){
-        Station station = sqlSession.selectOne("getStationNameFromDBById", id);
+    public StationDTO getStationDTOById(int id){
+        Station station = sqlSession.selectOne("getStationNameById", id);
         StationDTO stationDTO = new StationDTO(station);
         return stationDTO;
     }
 
     @JsonSerialize
-    public CustomFieldDTO getCustomFieldDTOFromDBById(int id){
-        CustomField customField = sqlSession.selectOne("getCustomFieldFromDBById", id);
+    public CustomFieldDTO getCustomFieldDTOById(int id){
+        CustomField customField = sqlSession.selectOne("getCustomFieldById", id);
         CustomFieldDTO customFieldDTO = new CustomFieldDTO(customField);
         return customFieldDTO;
     }
 
     @JsonSerialize
-    public List<CustomFieldValueDTO> getCustomFieldValueDTOFromDBByStationId(int id){
+    public List<CustomFieldValueDTO> getCustomFieldValueDTOByStationId(int id){
         CustomFieldValueDTO customFieldValueDTO;
         List<CustomFieldValueDTO> customFieldValueDTOList = new ArrayList<>();
-        List<CustomFieldValue> customFieldValueList = sqlSession.selectList(" getCustomFieldValueFromDBByStationId", id);
+        List<CustomFieldValue> customFieldValueList = sqlSession.selectList(" getCustomFieldValueByStationId", id);
         for(CustomFieldValue customFieldValue: customFieldValueList){
             customFieldValueDTO = new CustomFieldValueDTO(customFieldValue);
             customFieldValueDTOList.add(customFieldValueDTO);
@@ -60,8 +60,8 @@ public class StationService {
     }
 
     @JsonSerialize
-    public SectionDTO getSectionDTOFromDBById(int id){
-        Section section = sqlSession.selectOne("getSectionFromDBById", id);
+    public SectionDTO getSectionDTOById(int id){
+        Section section = sqlSession.selectOne("getSectionById", id);
         SectionDTO sectionDTO = new SectionDTO(section);
         return sectionDTO;
     }
@@ -70,14 +70,14 @@ public class StationService {
     public StationApiFormDTO getStationApiDTOById(int id) {
 
         //Loading StationDTO
-        StationDTO stationDTO = this.getStationDTOFromDBById(id);
+        StationDTO stationDTO = this.getStationDTOById(id);
 
         String stationName = stationDTO.getName();
 
         int stationId = stationDTO.getId();
 
         //Loading CustomFieldValueDTO
-        List<CustomFieldValueDTO> customFieldValueDTOList = this.getCustomFieldValueDTOFromDBByStationId(stationId);
+        List<CustomFieldValueDTO> customFieldValueDTOList = this.getCustomFieldValueDTOByStationId(stationId);
 
         List<CustomFieldDTO> customFieldDTOList = new ArrayList<>();
 
@@ -85,7 +85,7 @@ public class StationService {
         //Loading CustomFieldDTO
         for(CustomFieldValueDTO customFieldValueDTO : customFieldValueDTOList){
             int customFieldId = customFieldValueDTO.getCustomFieldId();
-            customFieldDTOList.add(this.getCustomFieldDTOFromDBById(customFieldId));
+            customFieldDTOList.add(this.getCustomFieldDTOById(customFieldId));
         }
 
         List<SectionDTO> sectionDTOList = new ArrayList<>();
@@ -97,7 +97,7 @@ public class StationService {
             int sectionId = customFieldDTO.getSectionId();
 
             if (sectionId != sectionIdCounter) {
-                sectionDTOList.add(this.getSectionDTOFromDBById(sectionId));
+                sectionDTOList.add(this.getSectionDTOById(sectionId));
                 sectionIdCounter = sectionId;
             }
         }

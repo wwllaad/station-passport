@@ -20,27 +20,27 @@ public class StationRestController {
 
 
     @GetMapping("/all")
-    private List<StationDTO> getAllStationsDTOFromDB()
+    private List<StationDTO> getAllStationsDTO()
     {
-        return stationService.getAllStationsDTOFromDB();
+        return stationService.getAllStationsDTO();
     }
 
     @GetMapping("/byid")
-    private StationDTO getStationDTOFromDBById(@RequestParam int id)
+    private StationDTO getStationDTOById(@RequestParam int id)
     {
-        return stationService.getStationDTOFromDBById(id);
+        return stationService.getStationDTOById(id);
     }
 
     @GetMapping("/customfield")
-    private CustomFieldDTO getCustomFieldsDTOFromDBById(@RequestParam int id)
+    private CustomFieldDTO getCustomFieldsDTOById(@RequestParam int id)
     {
-        return stationService.getCustomFieldDTOFromDBById(id);
+        return stationService.getCustomFieldDTOById(id);
     }
 
     @GetMapping("/customfieldvalue")
-    private List<CustomFieldValueDTO> getCustomFieldValueDTOFromDBByStationId(@RequestParam int id)
+    private List<CustomFieldValueDTO> getCustomFieldValueDTOByStationId(@RequestParam int id)
     {
-        return stationService.getCustomFieldValueDTOFromDBByStationId(id);
+        return stationService.getCustomFieldValueDTOByStationId(id);
     }
 
     @GetMapping("/api")

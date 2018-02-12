@@ -33,15 +33,15 @@
         SELECT role FROM users WHERE username=#{username}
     </select>
     
-    <insert id="AddUserToDB">
+    <insert id="AddUser">
         INSERT INTO users(username,password,email,phone,role) VALUES(#{username},#{password},#{email},#{phone},#{role})
     </insert>
 
-    <delete id="deleteUserFromDB">
+    <delete id="deleteUser">
         DELETE FROM users WHERE id=#{id}
     </delete>
 
-    <update id="updateUserInDB">
+    <update id="updateUser">
         UPDATE users SET email=#{email}, phone=#{phone} WHERE id=#{id}
     </update>
 </mapper>

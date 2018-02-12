@@ -12,7 +12,7 @@
         <result property="order" column="customfield_order"/>
     </resultMap>
 
-    <select id="getCustomFieldFromDBById" parameterType="java.lang.Integer" resultMap="customFields">
+    <select id="getCustomFieldById" parameterType="java.lang.Integer" resultMap="customFields">
         SELECT * FROM customfields WHERE customfield_id=#{id}
     </select>
 

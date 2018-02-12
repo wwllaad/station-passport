@@ -11,7 +11,7 @@
 
     </resultMap>
 
-    <select id="getSectionFromDBById" parameterType="java.lang.Integer" resultMap="sections">
+    <select id="getSectionById" parameterType="java.lang.Integer" resultMap="sections">
         SELECT * FROM sections WHERE section_id=#{id}
     </select>
 

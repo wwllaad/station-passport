@@ -12,7 +12,7 @@
         <result property="intValue" column="customfieldsvalue_numeric_value"/>
     </resultMap>
 
-    <select id=" getCustomFieldValueFromDBByStationId" parameterType="java.lang.Integer" resultMap="customFieldValue">
+    <select id=" getCustomFieldValueByStationId" parameterType="java.lang.Integer" resultMap="customFieldValue">
         SELECT * FROM customfieldsvalues WHERE customfieldsvalue_station_id=#{id}
     </select>
 

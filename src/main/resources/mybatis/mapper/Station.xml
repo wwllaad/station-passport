@@ -8,11 +8,11 @@
         <id property="id" column="station_id"/>
         <result property="name" column="station_name"/>
     </resultMap>
-    <select id="getAllStationsFromDB" resultMap="stations">
+    <select id="getAllStations" resultMap="stations">
         SELECT * FROM stations
     </select>
 
-    <select id="getStationNameFromDBById" parameterType="java.lang.Integer" resultMap="stations">
+    <select id="getStationNameById" parameterType="java.lang.Integer" resultMap="stations">
         SELECT * FROM stations WHERE station_id=#{id}
     </select>
 

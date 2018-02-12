@@ -16,8 +16,8 @@ public class UserService {
         this.sqlSession = sqlSession;
     }
 
-    public List<User> getAllUsersFromDB(){
-        List<User> users = sqlSession.selectList("getAllUsersFromDB");
+    public List<User> getAllUsers(){
+        List<User> users = sqlSession.selectList("getAllUsers");
         return users;
     }
 
@@ -38,30 +38,30 @@ public class UserService {
         return sqlSession.selectOne("getUsernameById", id);
     }
 
-    public void AddUserToDB(User user){
-        sqlSession.insert("AddUserToDB", user);
+    public void AddUser(User user){
+        sqlSession.insert("AddUser", user);
     }
 
-    public void AddUserToDB(String username, String password, String email, String phone, String role) {
+    public void AddUser(String username, String password, String email, String phone, String role) {
         User user = new User();
         user.setUsername(username);
         user.setPassword(password);
         user.setEmail(email);
         user.setPhone(phone);
         user.setRole(role);
-        sqlSession.insert("AddUserToDB", user);
+        sqlSession.insert("AddUser", user);
     }
 
-    public void deleteUserFromDB(int id){
-        sqlSession.delete("deleteUserFromDB", id);
+    public void deleteUser(int id){
+        sqlSession.delete("deleteUser", id);
     }
 
-    public void updateUserInDB(int id, String email, String phone){
+    public void updateUser(int id, String email, String phone){
         User user = new User();
         user.setId(id);
         user.setPhone(email);
         user.setEmail(phone);
-        sqlSession.update("updateUserInDB", user);
+        sqlSession.update("updateUser", user);
     }
 }
 
