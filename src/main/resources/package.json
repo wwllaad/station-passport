@@ -10,10 +10,6 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
-    "file-loader": "^1.1.6",
-    "image-webpack-loader": "^4.0.0",
-    "img-loader": "^2.0.1",
-    "url-loader": "^0.6.2",
     "webpack": "^3.10.0"
   },
   "dependencies": {

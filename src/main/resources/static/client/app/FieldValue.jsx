@@ -13,11 +13,11 @@ class FieldValue extends React.Component {
 
         if (numValue != 0){
             return(
-                <tr>{numValue}</tr>
+                <div>{numValue}</div>
             )
         } else {
             return (
-                <tr>{textValue}</tr>
+                <div>{textValue}</div>
             )
         }
     }

@@ -11,7 +11,7 @@ class FieldName extends React.Component {
         let fieldName = this.props.field.name;
 
         return (
-                <tr>{fieldName}</tr>
+                <div>{fieldName}</div>
         );
     }
 }

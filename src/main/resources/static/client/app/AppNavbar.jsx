@@ -6,11 +6,6 @@ import "../css/App.css"
 class AppNavbar extends React.Component {
     constructor(props) {
         super(props);
-        this.handleClick = this.handleClick.bind(this);
-    }
-
-    handleClick(event){
-    this.props.setActiveView(event.target.name)
     }
 
     render() {

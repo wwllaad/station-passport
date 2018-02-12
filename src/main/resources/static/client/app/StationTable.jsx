@@ -28,7 +28,7 @@ class StationTable extends React.Component {
                 {sections}
 
                 <Button>
-                    <Link to="/stations">Вернуться к списку станций.</Link>
+                    <Link to="/stations">Вернуться к списку станций</Link>
                 </Button>
 
             </div>
