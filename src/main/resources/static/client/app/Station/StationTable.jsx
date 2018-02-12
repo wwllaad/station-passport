@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import Section from './Section.jsx'
 import {Link} from 'react-router-dom'
 import {Button} from 'react-bootstrap'
-import "../css/App.css"
+import "../../css/App.css"
 
 class StationTable extends React.Component {
     constructor(props) {

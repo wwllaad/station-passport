@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import {MemoryRouter,Route} from 'react-router-dom'
-import AppNavbar from './AppNavbar.jsx'
-import StationsList from './StationsList.jsx'
-import StationView from './StationView.jsx'
-import WelcomePage from './WelcomePage.jsx'
+import AppNavbar from './Navbar/AppNavbar.jsx'
+import StationsList from './Stations/StationsList.jsx'
+import StationView from './Station/StationView.jsx'
+import WelcomePage from './StartPage/WelcomePage.jsx'
 
 class App extends React.Component {
     constructor(props) {

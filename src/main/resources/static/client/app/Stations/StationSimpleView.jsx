@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import {Link} from 'react-router-dom'
 import {Button} from 'react-bootstrap'
-import "../css/App.css"
+import "../../css/App.css"
 
 class StationSimpleView extends React.Component {
     constructor(props) {
