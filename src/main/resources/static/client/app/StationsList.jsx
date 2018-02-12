@@ -15,7 +15,7 @@ class StationsList extends React.Component {
 
 
     loadStationsFromServer() {
-        fetch('http://localhost:8080/st/getAllStations',
+        fetch('http://localhost:8080/station/all',
             {credentials: 'same-origin'})
             .then((response) => response.json())
             .then((responseData) => {

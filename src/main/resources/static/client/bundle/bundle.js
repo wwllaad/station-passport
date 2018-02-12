@@ -31591,18 +31591,10 @@ var AppNavbar = function (_React$Component) {
     function AppNavbar(props) {
         _classCallCheck(this, AppNavbar);
 
-        var _this = _possibleConstructorReturn(this, (AppNavbar.__proto__ || Object.getPrototypeOf(AppNavbar)).call(this, props));
-
-        _this.handleClick = _this.handleClick.bind(_this);
-        return _this;
+        return _possibleConstructorReturn(this, (AppNavbar.__proto__ || Object.getPrototypeOf(AppNavbar)).call(this, props));
     }
 
     _createClass(AppNavbar, [{
-        key: 'handleClick',
-        value: function handleClick(event) {
-            this.props.setActiveView(event.target.name);
-        }
-    }, {
         key: 'render',
         value: function render() {
             return _react2.default.createElement(
@@ -43733,7 +43725,7 @@ var StationsList = function (_React$Component) {
         value: function loadStationsFromServer() {
             var _this2 = this;
 
-            fetch('http://localhost:8080/st/getAllStations', { credentials: 'same-origin' }).then(function (response) {
+            fetch('http://localhost:8080/station/all', { credentials: 'same-origin' }).then(function (response) {
                 return response.json();
             }).then(function (responseData) {
                 _this2.setState({
@@ -43927,7 +43919,7 @@ var StationView = function (_React$Component) {
 
             var stationId = this.props.match.params.id;
 
-            fetch('http://localhost:8080/st/api?id=' + stationId, { credentials: 'same-origin' }).then(function (response) {
+            fetch('http://localhost:8080/station/api?id=' + stationId, { credentials: 'same-origin' }).then(function (response) {
                 return response.json();
             }).then(function (responseData) {
                 _this2.setState({
@@ -44026,7 +44018,7 @@ var StationTable = function (_React$Component) {
                     _react2.default.createElement(
                         _reactRouterDom.Link,
                         { to: '/stations' },
-                        '\u0412\u0435\u0440\u043D\u0443\u0442\u044C\u0441\u044F \u043A \u0441\u043F\u0438\u0441\u043A\u0443 \u0441\u0442\u0430\u043D\u0446\u0438\u0439.'
+                        '\u0412\u0435\u0440\u043D\u0443\u0442\u044C\u0441\u044F \u043A \u0441\u043F\u0438\u0441\u043A\u0443 \u0441\u0442\u0430\u043D\u0446\u0438\u0439'
                     )
                 )
             );
@@ -44177,7 +44169,7 @@ var FieldName = function (_React$Component) {
             var fieldName = this.props.field.name;
 
             return _react2.default.createElement(
-                'tr',
+                'div',
                 null,
                 fieldName
             );
@@ -44232,13 +44224,13 @@ var FieldValue = function (_React$Component) {
 
             if (numValue != 0) {
                 return _react2.default.createElement(
-                    'tr',
+                    'div',
                     null,
                     numValue
                 );
             } else {
                 return _react2.default.createElement(
-                    'tr',
+                    'div',
                     null,
                     textValue
                 );

@@ -12,32 +12,32 @@ import java.util.List;
 
 
 @RestController
-@RequestMapping("/st")
+@RequestMapping("/station")
 public class StationRestController {
 
     @Autowired
     private StationService stationService;
 
 
-    @GetMapping("/getAllStations")
+    @GetMapping("/all")
     private List<StationDTO> getAllStationsDTOFromDB()
     {
         return stationService.getAllStationsDTOFromDB();
     }
 
-    @GetMapping("/name")
+    @GetMapping("/byid")
     private StationDTO getStationDTOFromDBById(@RequestParam int id)
     {
         return stationService.getStationDTOFromDBById(id);
     }
 
-    @GetMapping("/sec")
+    @GetMapping("/customfield")
     private CustomFieldDTO getCustomFieldsDTOFromDBById(@RequestParam int id)
     {
         return stationService.getCustomFieldDTOFromDBById(id);
     }
 
-    @GetMapping("/cfv")
+    @GetMapping("/customfieldvalue")
     private List<CustomFieldValueDTO> getCustomFieldValueDTOFromDBByStationId(@RequestParam int id)
     {
         return stationService.getCustomFieldValueDTOFromDBByStationId(id);
