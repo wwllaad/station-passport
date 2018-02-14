@@ -1,26 +1,28 @@
 package com.sevgmo.stationpassport.model;
 
-import java.util.List;
 
 public class Section extends AbstractEntity{
 
     private String name;
-    private Integer parentSectionId;
+    private Section section;
 
     public String getName() {
         return name;
     }
 
     public void setName(String name) {
+
         this.name = name;
     }
 
-    public Integer getParentSectionId() {
-        return parentSectionId;
+    public Section getSection() {
+
+        return section;
     }
 
-    public void setParentSectionId(Integer parentSectionId) {
-        this.parentSectionId = parentSectionId;
+    public void setSection(Section section) {
+
+        this.section = section;
     }
 
     public Section(int id) {
@@ -30,14 +32,14 @@ public class Section extends AbstractEntity{
     public Section() {
     }
 
-    public Section(int id, String name, Integer parentSectionId) {
+    public Section(int id, String name, Section section) {
         super(id);
         this.name = name;
-        this.parentSectionId = parentSectionId;
+        this.section = section;
     }
 
-    public Section(String name, Integer parentSectionId) {
+    public Section(String name, Section section) {
         this.name = name;
-        this.parentSectionId = parentSectionId;
+        this.section = section;
     }
 }

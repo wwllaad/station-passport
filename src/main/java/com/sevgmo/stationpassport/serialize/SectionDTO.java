@@ -8,12 +8,19 @@ import com.sevgmo.stationpassport.model.Section;
 public class SectionDTO extends AbstractEntity {
 
     private String name;
-    private Integer parentSectionId;
+    private Section section;
+
+    public SectionDTO(int id) {
+        super(id);
+    }
+
+    public SectionDTO() {
+    }
 
     public SectionDTO(Section section){
         this.id = section.getId();
         this.name = section.getName();
-        this.parentSectionId = section.getParentSectionId();
+        this.section = section.getSection();
     }
 
     public String getName() {
@@ -24,11 +31,11 @@ public class SectionDTO extends AbstractEntity {
         this.name = name;
     }
 
-    public Integer getParentSectionId() {
-        return parentSectionId;
+    public Section getSection() {
+        return section;
     }
 
-    public void setParentSectionId(Integer parentSectionId) {
-        this.parentSectionId = parentSectionId;
+    public void setSection(Section section) {
+        this.section = section;
     }
 }

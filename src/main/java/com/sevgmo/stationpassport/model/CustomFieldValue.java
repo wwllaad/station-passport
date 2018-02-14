@@ -2,25 +2,47 @@ package com.sevgmo.stationpassport.model;
 
 public class CustomFieldValue extends AbstractEntity {
 
-    private Integer customFieldId;
-    private Integer stationId;
+    private CustomField customField;
+    private Station station;
     private String textValue;
     private Integer intValue;
 
-    public Integer getCustomFieldId() {
-        return customFieldId;
+    public CustomFieldValue(int id) {
+        super(id);
     }
 
-    public void setCustomFieldId(Integer customFieldId) {
-        this.customFieldId = customFieldId;
+    public CustomFieldValue() {
     }
 
-    public Integer getStationId() {
-        return stationId;
+    public CustomFieldValue(int id, CustomField customField, Station station, String textValue, Integer intValue) {
+        super(id);
+        this.customField = customField;
+        this.station = station;
+        this.textValue = textValue;
+        this.intValue = intValue;
     }
 
-    public void setStationId(Integer stationId) {
-        this.stationId = stationId;
+    public CustomFieldValue(CustomField customField, Station station, String textValue, Integer intValue) {
+        this.customField = customField;
+        this.station = station;
+        this.textValue = textValue;
+        this.intValue = intValue;
+    }
+
+    public CustomField getCustomField() {
+        return customField;
+    }
+
+    public void setCustomField(CustomField customField) {
+        this.customField = customField;
+    }
+
+    public Station getStation() {
+        return station;
+    }
+
+    public void setStation(Station station) {
+        this.station = station;
     }
 
     public String getTextValue() {
@@ -36,28 +58,6 @@ public class CustomFieldValue extends AbstractEntity {
     }
 
     public void setIntValue(Integer intValue) {
-        this.intValue = intValue;
-    }
-
-    public CustomFieldValue(int id) {
-        super(id);
-    }
-
-    public CustomFieldValue() {
-    }
-
-    public CustomFieldValue(int id, Integer customFieldId, Integer stationId, String textValue, Integer intValue) {
-        super(id);
-        this.customFieldId = customFieldId;
-        this.stationId = stationId;
-        this.textValue = textValue;
-        this.intValue = intValue;
-    }
-
-    public CustomFieldValue(Integer customFieldId, Integer stationId, String textValue, Integer intValue) {
-        this.customFieldId = customFieldId;
-        this.stationId = stationId;
-        this.textValue = textValue;
         this.intValue = intValue;
     }
 }

@@ -48,14 +48,18 @@ public class StationService {
     }
 
     @JsonSerialize
+    public CustomField getCustomFieldById(int id){
+        CustomField customField = new CustomField(sqlSession.selectOne("getCustomFieldById", id));
+        return customField;
+    }
+
+    @JsonSerialize
     public List<CustomFieldValueDTO> getCustomFieldValueDTOByStationId(int id){
-        CustomFieldValueDTO customFieldValueDTO;
-        List<CustomFieldValueDTO> customFieldValueDTOList = new ArrayList<>();
-        List<CustomFieldValue> customFieldValueList = sqlSession.selectList(" getCustomFieldValueByStationId", id);
-        for(CustomFieldValue customFieldValue: customFieldValueList){
-            customFieldValueDTO = new CustomFieldValueDTO(customFieldValue);
-            customFieldValueDTOList.add(customFieldValueDTO);
-        }
+         List<CustomFieldValue> customFieldValueList = sqlSession.selectList(" getCustomFieldValueByStationId", id);
+         List<CustomFieldValueDTO> customFieldValueDTOList = new ArrayList<>();
+         for(CustomFieldValue customFieldValue: customFieldValueList){
+             customFieldValueDTOList.add(new CustomFieldValueDTO(customFieldValue));
+         }
         return customFieldValueDTOList;
     }
 
@@ -84,7 +88,7 @@ public class StationService {
 
         //Loading CustomFieldDTO
         for(CustomFieldValueDTO customFieldValueDTO : customFieldValueDTOList){
-            int customFieldId = customFieldValueDTO.getCustomFieldId();
+            int customFieldId = customFieldValueDTO.getCustomField().getId();
             customFieldDTOList.add(this.getCustomFieldDTOById(customFieldId));
         }
 
@@ -94,7 +98,7 @@ public class StationService {
         int sectionIdCounter = 0;
         for(CustomFieldDTO customFieldDTO : customFieldDTOList){
 
-            int sectionId = customFieldDTO.getSectionId();
+            int sectionId = customFieldDTO.getSection().getId();
 
             if (sectionId != sectionIdCounter) {
                 sectionDTOList.add(this.getSectionDTOById(sectionId));
@@ -123,12 +127,12 @@ public class StationService {
             }
 
             for (CustomFieldDTO customFieldDTO : customFieldDTOList){
-                if(sectionId == customFieldDTO.getSectionId()) {
+                if(sectionId == customFieldDTO.getSection().getId()) {
                     tempCustomFieldDTOList.add(customFieldDTO);
 
                     int customFieldId = customFieldDTO.getId();
                     for(CustomFieldValueDTO customFieldValueDTO: customFieldValueDTOList){
-                        if(customFieldId == customFieldValueDTO.getCustomFieldId()) {
+                        if(customFieldId == customFieldValueDTO.getCustomField().getId()) {
 
                             tempCustomFieldValueDTOList.add(customFieldValueDTO);
 

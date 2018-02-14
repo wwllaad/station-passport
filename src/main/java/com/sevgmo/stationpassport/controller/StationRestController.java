@@ -1,5 +1,6 @@
 package com.sevgmo.stationpassport.controller;
 
+import com.sevgmo.stationpassport.model.CustomField;
 import com.sevgmo.stationpassport.serialize.*;
 import com.sevgmo.stationpassport.service.StationService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,16 +19,26 @@ public class StationRestController {
     @Autowired
     private StationService stationService;
 
+    @GetMapping("/sec")
+    private SectionDTO getSectionDTO(@RequestParam int id){
+        return stationService.getSectionDTOById(id);
+    }
+
+
+    @GetMapping("/cf")
+    private CustomFieldDTO getCustomFieldsById(@RequestParam int id){
+        return stationService.getCustomFieldDTOById(id);
+    }
+
+//    ================================
 
     @GetMapping("/all")
-    private List<StationDTO> getAllStationsDTO()
-    {
+    private List<StationDTO> getAllStationsDTO(){
         return stationService.getAllStationsDTO();
     }
 
     @GetMapping("/byid")
-    private StationDTO getStationDTOById(@RequestParam int id)
-    {
+    private StationDTO getStationDTOById(@RequestParam int id){
         return stationService.getStationDTOById(id);
     }
 
