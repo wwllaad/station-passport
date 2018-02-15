@@ -1,6 +1,5 @@
 package com.sevgmo.stationpassport.model;
 
-
 public class Section extends AbstractEntity{
 
     private String name;
@@ -11,17 +10,14 @@ public class Section extends AbstractEntity{
     }
 
     public void setName(String name) {
-
         this.name = name;
     }
 
-    public Section getSection() {
-
+    public Section getParent() {
         return section;
     }
 
-    public void setSection(Section section) {
-
+    public void setParent(Section section) {
         this.section = section;
     }
 

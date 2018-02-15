@@ -1,14 +1,11 @@
 package com.sevgmo.stationpassport.serialize;
-
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.sevgmo.stationpassport.model.AbstractEntity;
 import com.sevgmo.stationpassport.model.CustomField;
-import com.sevgmo.stationpassport.model.Section;
 
 @JsonSerialize
 public class CustomFieldDTO extends AbstractEntity {
-
-    private Section section;
+    private SectionDTO section;
     private String name;
     private String type;
     private Integer order;
@@ -18,22 +15,21 @@ public class CustomFieldDTO extends AbstractEntity {
         this.name = customField.getName();
         this.type = customField.getType();
         this.order = customField.getOrder();
-        this.section = new Section(customField.getSection().getId(),customField.getSection().getName(),customField.getSection().getSection());
+        int sectionId = customField.getSection().getId();
+        String sectionName = customField.getSection().getName();
+        int parentSectionId = 0;
+        if(customField.getSection().getParent() != null){
+            parentSectionId = customField.getSection().getParent().getId();
+        }
+        this.section = new SectionDTO(sectionId,sectionName,parentSectionId);
     }
 
-    public CustomFieldDTO(int id, Section section, String name, String type, Integer order) {
-        super(id);
-        this.section = section;
+    public CustomFieldDTO(int id, int sectionId, String sectionName, int parentSectionId, String name, String type, int order){
+        this.id = id;
         this.name = name;
         this.type = type;
         this.order = order;
-    }
-
-    public CustomFieldDTO(Section section, String name, String type, Integer order) {
-        this.section = section;
-        this.name = name;
-        this.type = type;
-        this.order = order;
+        this.section = new SectionDTO(sectionId,sectionName,parentSectionId);
     }
 
     public CustomFieldDTO(int id) {
@@ -43,11 +39,11 @@ public class CustomFieldDTO extends AbstractEntity {
     public CustomFieldDTO() {
     }
 
-    public Section getSection() {
+    public SectionDTO getSection() {
         return section;
     }
 
-    public void setSection(Section section) {
+    public void setSection(SectionDTO section) {
         this.section = section;
     }
 

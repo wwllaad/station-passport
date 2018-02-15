@@ -8,8 +8,6 @@ import com.sevgmo.stationpassport.model.Station;
 import com.sevgmo.stationpassport.serialize.*;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Service;
-
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -36,21 +34,13 @@ public class StationService {
     @JsonSerialize
     public StationDTO getStationDTOById(int id){
         Station station = sqlSession.selectOne("getStationNameById", id);
-        StationDTO stationDTO = new StationDTO(station);
-        return stationDTO;
+        return new StationDTO(station);
     }
 
     @JsonSerialize
     public CustomFieldDTO getCustomFieldDTOById(int id){
         CustomField customField = sqlSession.selectOne("getCustomFieldById", id);
-        CustomFieldDTO customFieldDTO = new CustomFieldDTO(customField);
-        return customFieldDTO;
-    }
-
-    @JsonSerialize
-    public CustomField getCustomFieldById(int id){
-        CustomField customField = new CustomField(sqlSession.selectOne("getCustomFieldById", id));
-        return customField;
+        return new CustomFieldDTO(customField);
     }
 
     @JsonSerialize
@@ -66,90 +56,38 @@ public class StationService {
     @JsonSerialize
     public SectionDTO getSectionDTOById(int id){
         Section section = sqlSession.selectOne("getSectionById", id);
-        SectionDTO sectionDTO = new SectionDTO(section);
-        return sectionDTO;
+        return new SectionDTO(section);
     }
 
     @JsonSerialize
     public StationApiFormDTO getStationApiDTOById(int id) {
 
-        //Loading StationDTO
-        StationDTO stationDTO = this.getStationDTOById(id);
-
-        String stationName = stationDTO.getName();
-
-        int stationId = stationDTO.getId();
-
-        //Loading CustomFieldValueDTO
-        List<CustomFieldValueDTO> customFieldValueDTOList = this.getCustomFieldValueDTOByStationId(stationId);
-
-        List<CustomFieldDTO> customFieldDTOList = new ArrayList<>();
-
-
-        //Loading CustomFieldDTO
-        for(CustomFieldValueDTO customFieldValueDTO : customFieldValueDTOList){
-            int customFieldId = customFieldValueDTO.getCustomField().getId();
-            customFieldDTOList.add(this.getCustomFieldDTOById(customFieldId));
-        }
-
-        List<SectionDTO> sectionDTOList = new ArrayList<>();
-
-        //Loading SectionDTO
-        int sectionIdCounter = 0;
-        for(CustomFieldDTO customFieldDTO : customFieldDTOList){
-
-            int sectionId = customFieldDTO.getSection().getId();
-
-            if (sectionId != sectionIdCounter) {
-                sectionDTOList.add(this.getSectionDTOById(sectionId));
-                sectionIdCounter = sectionId;
-            }
-        }
-
-        //Transfer StationDTO, CustomFieldValueDTO, CustomFieldDTO, SectionDTO into common class SectionApiFormDTO
+        List<CustomFieldValueDTO> customFieldValueDTOList = this.getCustomFieldValueDTOByStationId(id);
 
         SectionApiFormDTO sectionApiFormDTO;
-        List<SectionApiFormDTO> sectionApiFormDTOList = new ArrayList<>();
+        List<SectionApiFormDTO> tempSectionApiFormDTOList = new ArrayList<>();
         List<CustomFieldDTO> tempCustomFieldDTOList = new ArrayList<>();
         List<CustomFieldValueDTO> tempCustomFieldValueDTOList = new ArrayList<>();
-        int sectionApiDTOIdCounter = sectionDTOList.get(0).getId();
 
-        for(SectionDTO sectionDTO : sectionDTOList){
+        String tempSectionName = customFieldValueDTOList.get(0).getCustomFieldDTO().getSection().getName();
+        int tempSectionId = customFieldValueDTOList.get(0).getCustomFieldDTO().getSection().getId();
 
+        sectionApiFormDTO = new SectionApiFormDTO(tempSectionId, tempSectionName, tempCustomFieldDTOList, tempCustomFieldValueDTOList);
+        tempSectionApiFormDTOList.add(sectionApiFormDTO);
 
-            int sectionId = sectionDTO.getId();
-
-            //sectionId - unique
-            if(sectionId != sectionApiDTOIdCounter){
-
-             tempCustomFieldDTOList = new ArrayList<>();
-             tempCustomFieldValueDTOList = new ArrayList<>();
+        for(CustomFieldValueDTO customFieldValueDTO: customFieldValueDTOList) {
+            if (tempSectionId != customFieldValueDTO.getCustomFieldDTO().getSection().getId()) {
+                tempSectionId = customFieldValueDTO.getCustomFieldDTO().getSection().getId();
+                tempSectionName = customFieldValueDTO.getCustomFieldDTO().getSection().getName();
+                tempCustomFieldDTOList = new ArrayList<>();
+                tempCustomFieldValueDTOList = new ArrayList<>();
+                sectionApiFormDTO = new SectionApiFormDTO(tempSectionId, tempSectionName, tempCustomFieldDTOList, tempCustomFieldValueDTOList);
+                tempSectionApiFormDTOList.add(sectionApiFormDTO);
             }
-
-            for (CustomFieldDTO customFieldDTO : customFieldDTOList){
-                if(sectionId == customFieldDTO.getSection().getId()) {
-                    tempCustomFieldDTOList.add(customFieldDTO);
-
-                    int customFieldId = customFieldDTO.getId();
-                    for(CustomFieldValueDTO customFieldValueDTO: customFieldValueDTOList){
-                        if(customFieldId == customFieldValueDTO.getCustomField().getId()) {
-
-                            tempCustomFieldValueDTOList.add(customFieldValueDTO);
-
-                        }
-                    }
-                }
-            }
-
-            String name = sectionDTO.getName();
-            int sectionApiFormDTOId = sectionDTO.getId();
-            sectionApiFormDTO = new SectionApiFormDTO(sectionApiFormDTOId,name, tempCustomFieldDTOList, tempCustomFieldValueDTOList);
-            sectionApiFormDTOList.add(sectionApiFormDTO);
-
+                tempCustomFieldValueDTOList.add(customFieldValueDTO);
+                tempCustomFieldDTOList.add(customFieldValueDTO.getCustomFieldDTO());
         }
-
-        return new StationApiFormDTO(stationName, sectionApiFormDTOList);
-
+        String stationName = customFieldValueDTOList.get(0).getStationDTO().getName();
+        return new StationApiFormDTO(stationName, tempSectionApiFormDTOList);
     }
-
 }

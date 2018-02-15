@@ -1,6 +1,5 @@
 package com.sevgmo.stationpassport.controller;
 
-import com.sevgmo.stationpassport.model.CustomField;
 import com.sevgmo.stationpassport.serialize.*;
 import com.sevgmo.stationpassport.service.StationService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,26 +10,12 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
-
 @RestController
 @RequestMapping("/station")
 public class StationRestController {
 
     @Autowired
     private StationService stationService;
-
-    @GetMapping("/sec")
-    private SectionDTO getSectionDTO(@RequestParam int id){
-        return stationService.getSectionDTOById(id);
-    }
-
-
-    @GetMapping("/cf")
-    private CustomFieldDTO getCustomFieldsById(@RequestParam int id){
-        return stationService.getCustomFieldDTOById(id);
-    }
-
-//    ================================
 
     @GetMapping("/all")
     private List<StationDTO> getAllStationsDTO(){
@@ -49,13 +34,12 @@ public class StationRestController {
     }
 
     @GetMapping("/customfieldvalue")
-    private List<CustomFieldValueDTO> getCustomFieldValueDTOByStationId(@RequestParam int id)
-    {
+    private List<CustomFieldValueDTO> getCustomFieldValueDTOByStationId(@RequestParam int id){
         return stationService.getCustomFieldValueDTOByStationId(id);
     }
 
     @GetMapping("/api")
-    private StationApiFormDTO getStationApiFormDTO(@RequestParam int id){
+    private StationApiFormDTO getStationApiDTOById(@RequestParam int id){
         return stationService.getStationApiDTOById(id);
     }
 
