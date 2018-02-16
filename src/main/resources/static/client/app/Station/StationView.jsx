@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import StationTable from './StationTable.jsx'
-import request from '../api.jsx'
+import {getStation} from '../api.jsx'
 
 class StationView extends React.Component {
     constructor(props) {
@@ -12,10 +12,8 @@ class StationView extends React.Component {
 
     componentDidMount() {
         let stationId = this.props.match.params.id;
-        let url = '/station/api?id='+ stationId;
-        let options = {credentials: 'same-origin'};
 
-        request(url,options).then(result => {
+        getStation(stationId).then(result => {
             this.setState({
                 station: result})
         }).catch((status, err) => {

@@ -10574,12 +10574,50 @@ ToggleButton.propTypes = propTypes;
 Object.defineProperty(exports, "__esModule", {
     value: true
 });
-exports.default = request;
+exports.getStation = getStation;
+exports.getAllStations = getAllStations;
+exports.getAllUsers = getAllUsers;
 var ENDPOINT = 'http://localhost:8080';
+var stationApi = '/station/api?id=';
+var stationsAll = '/station/all';
+var usersAll = '/users/all';
+var getOptions = { credentials: 'same-origin' };
 
-function request(url, options) {
+function getStation(stationId) {
     return new Promise(function (resolve, reject) {
-        fetch(ENDPOINT + url, options).then(parseJSON).then(function (response) {
+        fetch(ENDPOINT + stationApi + stationId, getOptions).then(parseJSON).then(function (response) {
+            if (response.ok) {
+                return resolve(response.json);
+            }
+            // extract the error from the server's json
+            return reject(response.json.meta.error);
+        }).catch(function (error) {
+            return reject({
+                networkError: error.message
+            });
+        });
+    });
+}
+
+function getAllStations() {
+    return new Promise(function (resolve, reject) {
+        fetch(ENDPOINT + stationsAll, getOptions).then(parseJSON).then(function (response) {
+            if (response.ok) {
+                return resolve(response.json);
+            }
+            // extract the error from the server's json
+            return reject(response.json.meta.error);
+        }).catch(function (error) {
+            return reject({
+                networkError: error.message
+            });
+        });
+    });
+}
+
+function getAllUsers() {
+    return new Promise(function (resolve, reject) {
+        fetch(ENDPOINT + usersAll, getOptions).then(parseJSON).then(function (response) {
             if (response.ok) {
                 return resolve(response.json);
             }
@@ -43736,8 +43774,6 @@ var _StationSimpleView2 = _interopRequireDefault(_StationSimpleView);
 
 var _api = __webpack_require__(157);
 
-var _api2 = _interopRequireDefault(_api);
-
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -43765,10 +43801,7 @@ var StationsList = function (_React$Component) {
         value: function componentDidMount() {
             var _this2 = this;
 
-            var url = '/station/all';
-            var options = { credentials: 'same-origin' };
-
-            (0, _api2.default)(url, options).then(function (result) {
+            (0, _api.getAllStations)().then(function (result) {
                 _this2.setState({
                     stations: result });
             }).catch(function (status, err) {
@@ -43930,8 +43963,6 @@ var _StationTable2 = _interopRequireDefault(_StationTable);
 
 var _api = __webpack_require__(157);
 
-var _api2 = _interopRequireDefault(_api);
-
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -43960,10 +43991,8 @@ var StationView = function (_React$Component) {
             var _this2 = this;
 
             var stationId = this.props.match.params.id;
-            var url = '/station/api?id=' + stationId;
-            var options = { credentials: 'same-origin' };
 
-            (0, _api2.default)(url, options).then(function (result) {
+            (0, _api.getStation)(stationId).then(function (result) {
                 _this2.setState({
                     station: result });
             }).catch(function (status, err) {

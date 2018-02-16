@@ -1,20 +1,58 @@
 const ENDPOINT = 'http://localhost:8080';
+const stationApi = '/station/api?id=';
+const stationsAll = '/station/all';
+const usersAll = '/users/all';
+const getOptions = {credentials: 'same-origin'};
 
-export default function request(url, options) {
+export function getStation(stationId){
     return new Promise((resolve, reject) => {
-        fetch(ENDPOINT  + url, options)
+        fetch(ENDPOINT  + stationApi + stationId, getOptions)
             .then(parseJSON)
             .then((response) => {
-        if (response.ok) {
-        return resolve(response.json);
-    }
-    // extract the error from the server's json
-    return reject(response.json.meta.error);
-})
-.catch((error) => reject({
-        networkError: error.message,
-    }));
-});
+                if (response.ok) {
+                    return resolve(response.json);
+                }
+                // extract the error from the server's json
+                return reject(response.json.meta.error);
+            })
+            .catch((error) => reject({
+                networkError: error.message,
+            }));
+    });
+}
+
+export function getAllStations(){
+    return new Promise((resolve, reject) => {
+        fetch(ENDPOINT  + stationsAll, getOptions)
+            .then(parseJSON)
+            .then((response) => {
+                if (response.ok) {
+                    return resolve(response.json);
+                }
+                // extract the error from the server's json
+                return reject(response.json.meta.error);
+            })
+            .catch((error) => reject({
+                networkError: error.message,
+            }));
+    });
+}
+
+export function getAllUsers(){
+    return new Promise((resolve, reject) => {
+        fetch(ENDPOINT  + usersAll, getOptions)
+            .then(parseJSON)
+            .then((response) => {
+                if (response.ok) {
+                    return resolve(response.json);
+                }
+                // extract the error from the server's json
+                return reject(response.json.meta.error);
+            })
+            .catch((error) => reject({
+                networkError: error.message,
+            }));
+    });
 }
 
 function parseJSON(response) {
@@ -25,3 +63,4 @@ function parseJSON(response) {
             json,
         })));
 }
+

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import StationSimpleView from './StationSimpleView.jsx'
-import request from '../api.jsx'
+import {getAllStations} from '../api.jsx'
 
 class StationsList extends React.Component {
     constructor(props) {
@@ -11,10 +11,8 @@ class StationsList extends React.Component {
     }
 
     componentDidMount() {
-        let url = '/station/all';
-        let options = {credentials: 'same-origin'};
 
-        request(url,options).then(result => {
+        getAllStations().then(result => {
             this.setState({
                 stations: result})
         }).catch((status, err) => {
