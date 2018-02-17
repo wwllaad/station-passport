@@ -1,39 +1,45 @@
 package com.sevgmo.stationpassport.serialize;
 
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
-import com.sevgmo.stationpassport.model.AbstractEntity;
-import com.sevgmo.stationpassport.model.CustomFieldValue;
+import com.sevgmo.stationpassport.model.*;
 
 @JsonSerialize
 public class CustomFieldValueDTO extends AbstractEntity {
 
-    private Integer customFieldId;
-    private Integer stationId;
+    private CustomFieldDTO customFieldDTO;
+    private StationDTO stationDTO;
     private String textValue;
     private Integer intValue;
 
     public CustomFieldValueDTO(CustomFieldValue customFieldValue){
+
         this.id = customFieldValue.getId();
-        this.customFieldId = customFieldValue.getCustomFieldId();
-        this.stationId = customFieldValue.getStationId();
+        this.customFieldDTO = new CustomFieldDTO(customFieldValue.getCustomField());
+        this.stationDTO = new StationDTO(customFieldValue.getStation());
         this.textValue = customFieldValue.getTextValue();
         this.intValue = customFieldValue.getIntValue();
     }
 
-    public Integer getCustomFieldId() {
-        return customFieldId;
+    public CustomFieldValueDTO(int id) {
+        super(id);
     }
 
-    public void setCustomFieldId(Integer customFieldId) {
-        this.customFieldId = customFieldId;
+    public CustomFieldValueDTO() {    }
+
+    public CustomFieldDTO getCustomFieldDTO() {
+        return customFieldDTO;
     }
 
-    public Integer getStationId() {
-        return stationId;
+    public void setCustomFieldDTO(CustomFieldDTO customFieldDTO) {
+        this.customFieldDTO = customFieldDTO;
     }
 
-    public void setStationId(Integer stationId) {
-        this.stationId = stationId;
+    public StationDTO getStationDTO() {
+        return stationDTO;
+    }
+
+    public void setStationDTO(StationDTO stationDTO) {
+        this.stationDTO = stationDTO;
     }
 
     public String getTextValue() {
