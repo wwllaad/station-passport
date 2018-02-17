@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import StationSimpleView from './StationSimpleView.jsx'
+import {getAllStations} from '../api.jsx'
 
 class StationsList extends React.Component {
     constructor(props) {
@@ -10,23 +11,19 @@ class StationsList extends React.Component {
     }
 
     componentDidMount() {
-        this.loadStationsFromServer();
-    }
 
-
-    loadStationsFromServer() {
-        fetch('http://localhost:8080/station/all',
-            {credentials: 'same-origin'})
-            .then((response) => response.json())
-            .then((responseData) => {
-                this.setState({
-                    stations: responseData,
-                });
+        getAllStations().then(result => {
+            this.setState({
+                stations: result})
+        }).catch((status, err) => {
+                console.log('err');
+                console.log(err);
             });
     }
+
     render() {
 
-        while(!this.state.stations){
+        if(!this.state.stations){
             return(
                 <div>Loading....</div>
             )

@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import UserTable from './UserTable.jsx'
+import {getAllUsers} from '../api.jsx'
 
 class UserView extends React.Component {
     constructor(props) {
@@ -10,20 +11,16 @@ class UserView extends React.Component {
     }
 
     componentDidMount() {
-        this.loadUsersFromServer();
+
+        getAllUsers().then(result => {
+            this.setState({
+                users: result})
+        }).catch((status, err) => {
+            console.log('err');
+            console.log(err);
+        });
     }
 
-
-    loadUsersFromServer() {
-        fetch('http://localhost:8080/users/all',
-            {credentials: 'same-origin'})
-            .then((response) => response.json())
-            .then((responseData) => {
-                this.setState({
-                    users: responseData,
-                });
-            });
-    }
     render() {
         return (
             <div>

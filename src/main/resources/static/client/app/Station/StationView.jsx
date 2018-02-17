@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import StationTable from './StationTable.jsx'
+import {getStation} from '../api.jsx'
 
 class StationView extends React.Component {
     constructor(props) {
@@ -10,22 +11,17 @@ class StationView extends React.Component {
     }
 
     componentDidMount() {
-        this.loadStationFromServer();
-    }
-
-
-    loadStationFromServer() {
         let stationId = this.props.match.params.id;
 
-        fetch('http://localhost:8080/station/api?id='+stationId,
-            {credentials: 'same-origin'})
-            .then((response) => response.json())
-            .then((responseData) => {
-                this.setState({
-                    station: responseData,
-                });
-            });
+        getStation(stationId).then(result => {
+            this.setState({
+                station: result})
+        }).catch((status, err) => {
+            console.log('err');
+            console.log(err);
+        });
     }
+
     render() {
         return (
             <div>
