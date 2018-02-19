@@ -25,10 +25,8 @@ var config = {
                 ]
             },
             {
-                test: /\.(png|svg|jpg|gif)$/,
-                use: [
-                   "file-loader"
-                ]
+                test: /\.(jpe?g|png|gif|svg)$/i,
+                use: "url-loader?name=app/images/[name].[ext]"
             }
         ]
     }
