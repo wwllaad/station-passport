@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import {Link} from 'react-router-dom'
 import {Button} from 'react-bootstrap'
-import "../../css/App.css"
+
 
 class StationSimpleView extends React.Component {
     constructor(props) {
@@ -12,10 +12,10 @@ class StationSimpleView extends React.Component {
 
         let id = this.props.station.id;
         return (
-                <tr>
-                    <td> {this.props.station.name}</td>
-                    <td> <Button><Link to={"/station/" + id}>INFO</Link></Button></td>
-                </tr>
+                <div className="table-row">
+                    <div className="table-cell"> {this.props.station.name}</div>
+                    <div className="table-cell"> <Button><Link to={"/station/" + id}>INFO</Link></Button></div>
+                </div>
 
         );
     }

@@ -22,14 +22,18 @@ class StationTable extends React.Component {
             <Section key={section.id} section={section}/>
         );
         return (
-            <div>
-                <h3>{stationName}</h3>
+            <div className="table">
+                <div className="table-row">
+                    <h2>{stationName}</h2>
+                </div>
 
                 {sections}
 
-                <Button>
-                    <Link to="/stations">Вернуться к списку станций</Link>
-                </Button>
+                <div className="table-row">
+                    <Button>
+                        <Link to="/stations">Вернуться к списку станций</Link>
+                    </Button>
+                </div>
 
             </div>
         );

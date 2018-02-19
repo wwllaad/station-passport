@@ -96,6 +96,14 @@ INSERT INTO customfieldsvalues (customfieldsvalue_customfield_id, customfieldsva
   (7, 1, 'Термометр', 0);
 INSERT INTO customfieldsvalues (customfieldsvalue_customfield_id, customfieldsvalue_station_id, customfieldsvalue_text_value, customfieldsvalue_numeric_value) VALUES
   (8, 1, '1.01.1930', 0);
+INSERT INTO customfieldsvalues (customfieldsvalue_customfield_id, customfieldsvalue_station_id, customfieldsvalue_text_value, customfieldsvalue_numeric_value) VALUES
+  (7, 1, 'Барометр', 0);
+INSERT INTO customfieldsvalues (customfieldsvalue_customfield_id, customfieldsvalue_station_id, customfieldsvalue_text_value, customfieldsvalue_numeric_value) VALUES
+  (8, 1, '2.02.1988', 0);
+INSERT INTO customfieldsvalues (customfieldsvalue_customfield_id, customfieldsvalue_station_id, customfieldsvalue_text_value, customfieldsvalue_numeric_value) VALUES
+  (7, 1, 'Гигрометр', 0);
+INSERT INTO customfieldsvalues (customfieldsvalue_customfield_id, customfieldsvalue_station_id, customfieldsvalue_text_value, customfieldsvalue_numeric_value) VALUES
+  (8, 1, '4.05.1999', 0);
 
 INSERT INTO customfieldsvalues (customfieldsvalue_customfield_id, customfieldsvalue_station_id, customfieldsvalue_text_value, customfieldsvalue_numeric_value) VALUES
   (7, 2, 'Бинокль', 0);

@@ -10577,7 +10577,6 @@ Object.defineProperty(exports, "__esModule", {
 exports.getStation = getStation;
 exports.getAllStations = getAllStations;
 exports.getAllUsers = getAllUsers;
-var ENDPOINT = 'http://localhost:8080';
 var stationApi = '/station/api?id=';
 var stationsAll = '/station/all';
 var usersAll = '/users/all';
@@ -10585,7 +10584,7 @@ var getOptions = { credentials: 'same-origin' };
 
 function getStation(stationId) {
     return new Promise(function (resolve, reject) {
-        fetch(ENDPOINT + stationApi + stationId, getOptions).then(parseJSON).then(function (response) {
+        fetch(stationApi + stationId, getOptions).then(parseJSON).then(function (response) {
             if (response.ok) {
                 return resolve(response.json);
             }
@@ -10601,7 +10600,7 @@ function getStation(stationId) {
 
 function getAllStations() {
     return new Promise(function (resolve, reject) {
-        fetch(ENDPOINT + stationsAll, getOptions).then(parseJSON).then(function (response) {
+        fetch(stationsAll, getOptions).then(parseJSON).then(function (response) {
             if (response.ok) {
                 return resolve(response.json);
             }
@@ -10617,7 +10616,7 @@ function getAllStations() {
 
 function getAllUsers() {
     return new Promise(function (resolve, reject) {
-        fetch(ENDPOINT + usersAll, getOptions).then(parseJSON).then(function (response) {
+        fetch(usersAll, getOptions).then(parseJSON).then(function (response) {
             if (response.ok) {
                 return resolve(response.json);
             }
@@ -10659,6 +10658,8 @@ var _reactDom = __webpack_require__(14);
 var _App = __webpack_require__(169);
 
 var _App2 = _interopRequireDefault(_App);
+
+__webpack_require__(62);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -43187,7 +43188,7 @@ exports = module.exports = __webpack_require__(346)(false);
 
 
 // module
-exports.push([module.i, "h2{\r\n    text-align: center;\r\n}\r\nh4{\r\n    text-align: center;\r\n}\r\n\r\na:hover{\r\n    text-decoration: none;\r\n}", ""]);
+exports.push([module.i, "h2{\r\n    text-align: center;\r\n}\r\nh4{\r\n    text-align: center;\r\n}\r\n\r\na:hover{\r\n    text-decoration: none;\r\n}\r\n\r\n.table{\r\n    display: table;\r\n    border-collapse: collapse;\r\n}\r\n\r\n.table-header-group {\r\n    display: table-header-group;\r\n}\r\n\r\n.table-row-group{\r\n    display: table-row-group;\r\n\r\n}\r\n\r\n.table-row{\r\n    display: table-row;\r\n}\r\n\r\n.table-cell{\r\n    padding: 5px;\r\n    display: table-cell;\r\n    border: 1px solid #5e5e5e;\r\n    background-color: #f0f0f0;\r\n}", ""]);
 
 // exports
 
@@ -43828,29 +43829,29 @@ var StationsList = function (_React$Component) {
                 'div',
                 null,
                 _react2.default.createElement(
-                    'table',
-                    { className: 'table table-striped' },
+                    'div',
+                    { className: 'table' },
                     _react2.default.createElement(
-                        'thead',
-                        null,
+                        'div',
+                        { className: 'table-header-group' },
                         _react2.default.createElement(
-                            'tr',
-                            null,
+                            'div',
+                            { className: 'table-row' },
                             _react2.default.createElement(
-                                'th',
-                                null,
+                                'div',
+                                { className: 'table-cell' },
                                 '\u041D\u0430\u0437\u0432\u0430\u043D\u0438\u0435 \u043C\u0435\u0442\u0435\u043E\u0441\u0442\u0430\u043D\u0446\u0438\u0438'
                             ),
                             _react2.default.createElement(
-                                'th',
-                                null,
+                                'div',
+                                { className: 'table-cell' },
                                 '\u041F\u043E\u0434\u0440\u043E\u0431\u043D\u0430\u044F \u0438\u043D\u0444\u043E\u0440\u043C\u0430\u0446\u0438\u044F'
                             )
                         )
                     ),
                     _react2.default.createElement(
-                        'tbody',
-                        null,
+                        'div',
+                        { className: 'table-row-group' },
                         stationsList
                     )
                 )
@@ -43884,8 +43885,6 @@ var _reactRouterDom = __webpack_require__(49);
 
 var _reactBootstrap = __webpack_require__(71);
 
-__webpack_require__(62);
-
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -43909,17 +43908,17 @@ var StationSimpleView = function (_React$Component) {
 
             var id = this.props.station.id;
             return _react2.default.createElement(
-                'tr',
-                null,
+                'div',
+                { className: 'table-row' },
                 _react2.default.createElement(
-                    'td',
-                    null,
+                    'div',
+                    { className: 'table-cell' },
                     ' ',
                     this.props.station.name
                 ),
                 _react2.default.createElement(
-                    'td',
-                    null,
+                    'div',
+                    { className: 'table-cell' },
                     ' ',
                     _react2.default.createElement(
                         _reactBootstrap.Button,
@@ -44078,20 +44077,28 @@ var StationTable = function (_React$Component) {
             });
             return _react2.default.createElement(
                 'div',
-                null,
+                { className: 'table' },
                 _react2.default.createElement(
-                    'h3',
-                    null,
-                    stationName
+                    'div',
+                    { className: 'table-row' },
+                    _react2.default.createElement(
+                        'h2',
+                        null,
+                        stationName
+                    )
                 ),
                 sections,
                 _react2.default.createElement(
-                    _reactBootstrap.Button,
-                    null,
+                    'div',
+                    { className: 'table-row' },
                     _react2.default.createElement(
-                        _reactRouterDom.Link,
-                        { to: '/stations' },
-                        '\u0412\u0435\u0440\u043D\u0443\u0442\u044C\u0441\u044F \u043A \u0441\u043F\u0438\u0441\u043A\u0443 \u0441\u0442\u0430\u043D\u0446\u0438\u0439'
+                        _reactBootstrap.Button,
+                        null,
+                        _react2.default.createElement(
+                            _reactRouterDom.Link,
+                            { to: '/stations' },
+                            '\u0412\u0435\u0440\u043D\u0443\u0442\u044C\u0441\u044F \u043A \u0441\u043F\u0438\u0441\u043A\u0443 \u0441\u0442\u0430\u043D\u0446\u0438\u0439'
+                        )
                     )
                 )
             );
@@ -44158,38 +44165,53 @@ var Section = function (_React$Component) {
                 return _react2.default.createElement(_FieldValue2.default, { key: field.id, field: field });
             });
 
+            var fieldValuesFormatted = [];
+            var fieldValuesBuffer = [];
+            var fieldNameCounter = 0;
+
+            for (var i = 0; i < fieldValue.length; i++) {
+
+                fieldNameCounter++;
+                fieldValuesBuffer.push(fieldValue[i]);
+
+                if (fieldNameCounter === fieldName.length) {
+                    fieldValuesFormatted.push(_react2.default.createElement(
+                        'div',
+                        { className: 'table-row' },
+                        fieldValuesBuffer
+                    ));
+                    fieldValuesBuffer = [];
+                    fieldNameCounter = 0;
+                }
+            }
             return _react2.default.createElement(
-                'table',
-                { className: 'table table-striped' },
+                'div',
+                { className: 'table' },
                 _react2.default.createElement(
-                    'thead',
-                    null,
+                    'div',
+                    { className: 'table-header-group' },
                     _react2.default.createElement(
-                        'tr',
-                        null,
+                        'div',
+                        { className: 'table-row' },
                         _react2.default.createElement(
-                            'th',
+                            'h3',
                             null,
                             sectionName
                         )
                     )
                 ),
                 _react2.default.createElement(
-                    'tbody',
-                    null,
+                    'div',
+                    { className: 'table-row-group' },
                     _react2.default.createElement(
-                        'tr',
-                        null,
+                        'div',
+                        { className: 'table-row' },
                         _react2.default.createElement(
-                            'td',
-                            null,
+                            'div',
+                            { className: 'table-row' },
                             fieldName
                         ),
-                        _react2.default.createElement(
-                            'td',
-                            null,
-                            fieldValue
-                        )
+                        fieldValuesFormatted
                     )
                 )
             );
@@ -44236,14 +44258,14 @@ var FieldName = function (_React$Component) {
     }
 
     _createClass(FieldName, [{
-        key: 'render',
+        key: "render",
         value: function render() {
 
             var fieldName = this.props.field.name;
 
             return _react2.default.createElement(
-                'div',
-                null,
+                "div",
+                { className: "table-cell" },
                 fieldName
             );
         }
@@ -44289,22 +44311,22 @@ var FieldValue = function (_React$Component) {
     }
 
     _createClass(FieldValue, [{
-        key: 'render',
+        key: "render",
         value: function render() {
 
             var textValue = this.props.field.textValue;
             var numValue = this.props.field.intValue;
 
-            if (numValue != 0) {
+            if (numValue !== 0) {
                 return _react2.default.createElement(
-                    'div',
-                    null,
+                    "div",
+                    { className: "table-cell" },
                     numValue
                 );
             } else {
                 return _react2.default.createElement(
-                    'div',
-                    null,
+                    "div",
+                    { className: "table-cell" },
                     textValue
                 );
             }

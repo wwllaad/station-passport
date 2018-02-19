@@ -1,4 +1,3 @@
-const ENDPOINT = 'http://localhost:8080';
 const stationApi = '/station/api?id=';
 const stationsAll = '/station/all';
 const usersAll = '/users/all';
@@ -6,7 +5,7 @@ const getOptions = {credentials: 'same-origin'};
 
 export function getStation(stationId){
     return new Promise((resolve, reject) => {
-        fetch(ENDPOINT  + stationApi + stationId, getOptions)
+        fetch(stationApi + stationId, getOptions)
             .then(parseJSON)
             .then((response) => {
                 if (response.ok) {
@@ -23,7 +22,7 @@ export function getStation(stationId){
 
 export function getAllStations(){
     return new Promise((resolve, reject) => {
-        fetch(ENDPOINT  + stationsAll, getOptions)
+        fetch(stationsAll, getOptions)
             .then(parseJSON)
             .then((response) => {
                 if (response.ok) {
@@ -40,7 +39,7 @@ export function getAllStations(){
 
 export function getAllUsers(){
     return new Promise((resolve, reject) => {
-        fetch(ENDPOINT  + usersAll, getOptions)
+        fetch(usersAll, getOptions)
             .then(parseJSON)
             .then((response) => {
                 if (response.ok) {

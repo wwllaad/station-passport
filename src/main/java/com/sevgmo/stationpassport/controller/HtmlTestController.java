@@ -8,7 +8,7 @@ import org.springframework.web.servlet.ModelAndView;
     public class HtmlTestController {
 
         @GetMapping("/")
-        public ModelAndView index() {
+        public ModelAndView login() {
             ModelAndView mav = new ModelAndView("index");
             return mav;
         }

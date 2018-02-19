@@ -75,6 +75,8 @@ public class StationService {
         sectionApiFormDTO = new SectionApiFormDTO(tempSectionId, tempSectionName, tempCustomFieldDTOList, tempCustomFieldValueDTOList);
         tempSectionApiFormDTOList.add(sectionApiFormDTO);
 
+        List<Integer> customFieldIdBuffer = new ArrayList<>();
+
         for(CustomFieldValueDTO customFieldValueDTO: customFieldValueDTOList) {
             if (tempSectionId != customFieldValueDTO.getCustomFieldDTO().getSection().getId()) {
                 tempSectionId = customFieldValueDTO.getCustomFieldDTO().getSection().getId();
@@ -85,7 +87,13 @@ public class StationService {
                 tempSectionApiFormDTOList.add(sectionApiFormDTO);
             }
                 tempCustomFieldValueDTOList.add(customFieldValueDTO);
+
+            //one section can contain multiple CustomFieldValues ​​but only one set of CustomField names
+            if(!customFieldIdBuffer.contains(customFieldValueDTO.getCustomFieldDTO().getId())) {
                 tempCustomFieldDTOList.add(customFieldValueDTO.getCustomFieldDTO());
+                customFieldIdBuffer.add(customFieldValueDTO.getCustomFieldDTO().getId());
+            }
+
         }
         String stationName = customFieldValueDTOList.get(0).getStationDTO().getName();
         return new StationApiFormDTO(stationName, tempSectionApiFormDTOList);

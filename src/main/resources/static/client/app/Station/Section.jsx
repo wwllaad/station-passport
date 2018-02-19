@@ -2,13 +2,10 @@ import React, { Component } from 'react';
 import FieldName from './FieldName.jsx';
 import FieldValue from './FieldValue.jsx';
 
-
 class Section extends React.Component {
     constructor(props) {
         super(props);
     }
-
-
     render() {
 
         let sectionName = this.props.section.name;
@@ -18,22 +15,38 @@ class Section extends React.Component {
         let fieldValue = this.props.section.customFieldValueDTOList.map(field =>
             <FieldValue key={field.id} field={field}/>);
 
+        let fieldValuesFormatted = [];
+        let fieldValuesBuffer = [];
+        let fieldNameCounter = 0;
+
+        for(let i=0;i<fieldValue.length;i++){
+
+            fieldNameCounter++;
+            fieldValuesBuffer.push(fieldValue[i]);
+
+            if(fieldNameCounter === fieldName.length){
+                fieldValuesFormatted.push(<div className="table-row">{fieldValuesBuffer}</div>);
+                fieldValuesBuffer = [];
+                fieldNameCounter = 0;
+            }
+        }
         return (
-            <table className="table table-striped">
-                <thead>
-                    <tr>
-                        <th>{sectionName}</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>{fieldName}</td>
-                        <td>{fieldValue}</td>
-                    </tr>
-                </tbody>
-            </table>
+            <div className="table">
+                <div className="table-header-group">
+                    <div className="table-row">
+                        <h3>{sectionName}</h3>
+                    </div>
+                </div>
+                <div className="table-row-group">
+                    <div className="table-row">
+                        <div className="table-row">{fieldName}</div>
+
+                        {fieldValuesFormatted}
+
+                    </div>
+                </div>
+            </div>
     );
     }
 }
-
 export default Section;

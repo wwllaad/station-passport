@@ -11,13 +11,13 @@ class FieldValue extends React.Component {
         let textValue = this.props.field.textValue;
         let numValue = this.props.field.intValue;
 
-        if (numValue != 0){
+        if (numValue !== 0){
             return(
-                <div>{numValue}</div>
+                <div className="table-cell">{numValue}</div>
             )
         } else {
             return (
-                <div>{textValue}</div>
+                <div className="table-cell">{textValue}</div>
             )
         }
     }

@@ -8,3 +8,28 @@ h4{
 a:hover{
     text-decoration: none;
 }
+
+.table{
+    display: table;
+    border-collapse: collapse;
+}
+
+.table-header-group {
+    display: table-header-group;
+}
+
+.table-row-group{
+    display: table-row-group;
+
+}
+
+.table-row{
+    display: table-row;
+}
+
+.table-cell{
+    padding: 5px;
+    display: table-cell;
+    border: 1px solid #5e5e5e;
+    background-color: #f0f0f0;
+}
