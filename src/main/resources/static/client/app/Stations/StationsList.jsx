@@ -33,7 +33,7 @@ class StationsList extends React.Component {
             <StationSimpleView key={station.id} station={station}/>);
         return (
             <div>
-                <div className="table">
+                <div id="station-list" className="table">
                     <div className="table-header-group">
                         <div className="table-row">
                             <div className="table-cell">Название метеостанции</div>

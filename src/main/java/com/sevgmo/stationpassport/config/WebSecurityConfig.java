@@ -23,7 +23,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                             "/img/**",
                             "/webjars/**",
                             "/public/**").permitAll()
-                    .antMatchers("/users/**", "/api/**").access("hasRole('USER') or hasRole('ADMIN')")
+                    .antMatchers("/users/**", "/station/**").access("hasRole('USER') or hasRole('ADMIN')")
                     .anyRequest().authenticated()
                 .and()
                 .csrf().disable()
