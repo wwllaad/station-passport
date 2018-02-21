@@ -7,6 +7,17 @@ h4{
 
 a:hover{
     text-decoration: none;
+    color: #7c7c7c;
+}
+
+a:active{
+    text-decoration: none;
+    color: #b7b7b7;
+}
+
+a{
+    text-decoration: none;
+    color: #ffffff;
 }
 
 .table{

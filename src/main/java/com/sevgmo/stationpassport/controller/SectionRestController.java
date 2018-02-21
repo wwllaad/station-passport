@@ -2,6 +2,7 @@ package com.sevgmo.stationpassport.controller;
 
 import com.sevgmo.stationpassport.serialize.CustomFieldDTO;
 import com.sevgmo.stationpassport.serialize.CustomFieldValueDTO;
+import com.sevgmo.stationpassport.serialize.ReactTreebeardDTO;
 import com.sevgmo.stationpassport.service.StationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -26,4 +27,10 @@ public class SectionRestController {
     private List<CustomFieldValueDTO> getCustomFieldValueDTOByStationId(@RequestParam int id){
         return stationService.getCustomFieldValueDTOByStationId(id);
     }
+
+    @GetMapping("/treeformsections")
+    private ReactTreebeardDTO getTreeFormSectionListByStationId(@RequestParam int id){
+        return stationService.getTreeFormSectionListByStationId(id);
+    }
+
 }

@@ -11,7 +11,8 @@ public class StationApiFormDTO extends AbstractEntity {
     private String name;
     private List<SectionApiFormDTO> sections;
 
-    public StationApiFormDTO(String name, List<SectionApiFormDTO> sections){
+    public StationApiFormDTO(int id, String name, List<SectionApiFormDTO> sections){
+        this.id = id;
         this.name = name;
         this.sections = sections;
     }

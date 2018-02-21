@@ -60,8 +60,13 @@ public class StationService {
     }
 
     @JsonSerialize
-    public StationApiFormDTO getStationApiDTOById(int id) {
+    public ReactTreebeardDTO getTreeFormSectionListByStationId(int id){
+        ReactTreebeardDTO reactTreebeardDTO = new ReactTreebeardDTO(this.getStationApiDTOById(id));
+        return reactTreebeardDTO;
+    }
 
+    @JsonSerialize
+    public StationApiFormDTO getStationApiDTOById(int id) {
         List<CustomFieldValueDTO> customFieldValueDTOList = this.getCustomFieldValueDTOByStationId(id);
 
         SectionApiFormDTO sectionApiFormDTO;
@@ -95,7 +100,8 @@ public class StationService {
             }
 
         }
+
         String stationName = customFieldValueDTOList.get(0).getStationDTO().getName();
-        return new StationApiFormDTO(stationName, tempSectionApiFormDTOList);
+        return new StationApiFormDTO(id, stationName, tempSectionApiFormDTOList);
     }
 }

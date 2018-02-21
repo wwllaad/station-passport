@@ -11,7 +11,7 @@ class StationView extends React.Component {
     }
 
     componentDidMount() {
-        let stationId = this.props.match.params.id;
+        let stationId = this.props.stationId;
 
         getStation(stationId).then(result => {
             this.setState({
@@ -25,7 +25,7 @@ class StationView extends React.Component {
     render() {
         return (
             <div>
-                <StationTable station={this.state.station}/>
+                <StationTable station={this.state.station} sectionId={this.props.sectionId}/>
             </div>
         );
     }

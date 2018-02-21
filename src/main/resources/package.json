@@ -20,10 +20,13 @@
     "babel-preset-react": "^6.24.1",
     "bootstrap": "^4.0.0",
     "css-loader": "^0.28.9",
+    "prop-types": "^15.6.0",
+    "radium": "^0.22.0",
     "react": "^16.2.0",
     "react-bootstrap": "^0.32.1",
     "react-dom": "^16.2.0",
     "react-router-dom": "^4.2.2",
+    "react-treebeard": "^2.1.0",
     "style-loader": "^0.20.1"
   }
 }

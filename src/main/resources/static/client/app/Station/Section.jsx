@@ -8,8 +8,9 @@ class Section extends React.Component {
     }
     render() {
 
-        let sectionName = this.props.section.name;
-
+        if(this.props.sectionId !== this.props.section.id){
+            return null;
+        }
         let fieldName = this.props.section.customFieldDTOList.map(field =>
             <FieldName key={field.id} field={field}/>);
         let fieldValue = this.props.section.customFieldValueDTOList.map(field =>
@@ -32,11 +33,6 @@ class Section extends React.Component {
         }
         return (
             <div className="table">
-                <div className="table-header-group">
-                    <div className="table-row">
-                        <h3>{sectionName}</h3>
-                    </div>
-                </div>
                 <div className="table-row-group">
                     <div className="table-row">
                         <div className="table-row">{fieldName}</div>
