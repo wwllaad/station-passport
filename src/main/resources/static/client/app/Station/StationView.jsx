@@ -25,7 +25,7 @@ class StationView extends React.Component {
     render() {
         return (
             <div>
-                <StationTable station={this.state.station} sectionId={this.props.sectionId}/>
+                <StationTable station={this.state.station} sectionId={this.props.sectionId} isEdit={this.props.isEdit} fieldValueListGeneration={this.props.fieldValueListGeneration}/>
             </div>
         );
     }

@@ -1,25 +1,35 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import styles from './styles.jsx';
 import StationView from "../Station/StationView.jsx";
+import {Button} from 'react-bootstrap'
 
 const HELP_MSG = 'Выберите секцию для просмотра...';
+const HELP_MSG_EDIT_VIEW = 'Выберите секцию для редактирования...';
 
 class NodeViewer extends React.Component {
 
     render() {
 
-        const style = styles.viewer;
-        let data;
-        if (!this.props.node || this.props.node.children) {
-            data = HELP_MSG;
-        } else {
-           data = <StationView stationId={this.props.stationId} sectionId={this.props.node.id}/>;
-        }
+        let msg;
 
-        return <div>
-            {data}
-        </div>;
+       if(this.props.isEdit){
+           msg = HELP_MSG_EDIT_VIEW;
+       } else{
+           msg = HELP_MSG;
+       }
+
+        let data;
+
+        if (!this.props.node || this.props.node.children) {
+            data = msg;
+        } else {
+            data = <StationView stationId={this.props.stationId} sectionId={this.props.node.id} isEdit={this.props.isEdit} fieldValueListGeneration={this.props.fieldValueListGeneration}/>;
+        }
+        return (
+                <div>
+                    {data}
+                </div>
+        );
     }
 }
 NodeViewer.propTypes = {

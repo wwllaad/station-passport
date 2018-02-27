@@ -10,16 +10,17 @@ class FieldValue extends React.Component {
 
         let textValue = this.props.field.textValue;
         let numValue = this.props.field.intValue;
+        let dataOut;
 
-        if (numValue !== 0){
-            return(
-                <div className="table-cell">{numValue}</div>
-            )
+        if (textValue === "NULL"){
+            dataOut = numValue;
         } else {
-            return (
-                <div className="table-cell">{textValue}</div>
-            )
+            dataOut = textValue;
         }
+
+        return(
+            <div className="table-cell">{dataOut}</div>
+        )
     }
 }
 export default FieldValue;

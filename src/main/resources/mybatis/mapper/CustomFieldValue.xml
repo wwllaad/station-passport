@@ -16,5 +16,12 @@
         SELECT * FROM customfieldsvalues WHERE customfieldsvalue_station_id=#{id}
     </select>
 
+    <update id="updateFieldValue" parameterType="CustomFieldValue">
+    UPDATE customfieldsvalues SET
+    customfieldsvalue_text_value = #{textValue},
+    customfieldsvalue_numeric_value = #{intValue}
+    WHERE customfieldsvalue_id = #{id}
+    </update>
+
 </mapper>
 

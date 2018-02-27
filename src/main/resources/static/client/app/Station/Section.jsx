@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import FieldName from './FieldName.jsx';
 import FieldValue from './FieldValue.jsx';
+import FieldValueEdit from './FieldValueEdit.jsx';
 
 class Section extends React.Component {
     constructor(props) {
@@ -13,8 +14,16 @@ class Section extends React.Component {
         }
         let fieldName = this.props.section.customFieldDTOList.map(field =>
             <FieldName key={field.id} field={field}/>);
-        let fieldValue = this.props.section.customFieldValueDTOList.map(field =>
-            <FieldValue key={field.id} field={field}/>);
+
+        let fieldValue;
+
+        if(this.props.isEdit){
+            fieldValue = this.props.section.customFieldValueDTOList.map(field =>
+                <FieldValueEdit key={field.id} field={field} fieldValueListGeneration={this.props.fieldValueListGeneration}/>);
+        } else {
+            fieldValue = this.props.section.customFieldValueDTOList.map(field =>
+                <FieldValue key={field.id} field={field}/>);
+        }
 
         let fieldValuesFormatted = [];
         let fieldValuesBuffer = [];

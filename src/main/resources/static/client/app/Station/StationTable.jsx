@@ -18,7 +18,7 @@ class StationTable extends React.Component {
         }
 
         let sections = this.props.station.sections.map(section =>
-            <Section key={section.id} section={section} sectionId={this.props.sectionId}/>
+            <Section key={section.id} section={section} sectionId={this.props.sectionId} isEdit={this.props.isEdit} fieldValueListGeneration={this.props.fieldValueListGeneration}/>
         );
         return (
             <div className="table">

@@ -104,4 +104,8 @@ public class StationService {
         String stationName = customFieldValueDTOList.get(0).getStationDTO().getName();
         return new StationApiFormDTO(id, stationName, tempSectionApiFormDTOList);
     }
+
+    public void updateTextFieldValue(CustomFieldValueDTO customFieldValueDTO) {
+        sqlSession.update("updateFieldValue", customFieldValueDTO);
+    }
 }

@@ -5,10 +5,8 @@ import com.sevgmo.stationpassport.serialize.CustomFieldValueDTO;
 import com.sevgmo.stationpassport.serialize.ReactTreebeardDTO;
 import com.sevgmo.stationpassport.service.StationService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
 import java.util.List;
 
 @RestController
@@ -33,4 +31,11 @@ public class SectionRestController {
         return stationService.getTreeFormSectionListByStationId(id);
     }
 
+    @RequestMapping(method = RequestMethod.PATCH, value = "/update")
+    @ResponseBody
+    private void updateFieldValue(@RequestBody List<CustomFieldValueDTO> customFieldValueDTOList){
+       for(CustomFieldValueDTO customFieldValueDTO: customFieldValueDTOList){
+              stationService.updateTextFieldValue(customFieldValueDTO);
+        }
+    }
 }
