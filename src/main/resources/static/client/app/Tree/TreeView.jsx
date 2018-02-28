@@ -130,13 +130,13 @@ class TreeView extends React.Component {
         if(this.props.isEdit){
             button =<div className="table-row">
                 <Button bsStyle="success" onClick={this.handleSubmit}>
-                    <Link to={"/tree/" + stationId}>Сохранить</Link>
+                    <Link to={"/station/" + stationId}>Сохранить</Link>
                 </Button>
             </div>;
         } else{
             button = <div className="table-row">
                 <Button bsStyle="danger">
-                    <Link to={"/treeEdit/" + stationId}>Редактировать</Link>
+                    <Link to={"/stationEditMode/" + stationId}>Редактировать</Link>
                 </Button>
             </div>;
         }
