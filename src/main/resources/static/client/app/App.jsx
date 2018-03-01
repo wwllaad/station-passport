@@ -8,7 +8,6 @@ import TreeView from './Tree/TreeView.jsx'
 class App extends React.Component {
     constructor(props) {
         super(props);
-
     }
 
     render() {
@@ -20,8 +19,7 @@ class App extends React.Component {
                         <hr/>
                         <Route exact path="/"        component={WelcomePage}/>
                         <Route path="/stations"      component={StationsList}/>
-                        <Route path="/station/:id"      render={(props)=><TreeView {...props} isEdit={false}/>}/>
-                        <Route path="/stationEditMode/:id"  render={(props)=><TreeView {...props} isEdit={true}/>}/>
+                        <Route path="/station/:id"   component={TreeView}/>
                     </div>
                 </HashRouter>
             </div>

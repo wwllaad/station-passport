@@ -3,12 +3,16 @@
 import React from 'react';
 import {Treebeard, decorators} from 'react-treebeard';
 import NodeViewer from './NodeViewer.jsx';
-import {getTreeSections} from '../api.jsx'
+import SaveEditButton from './SaveEditButton.jsx';
+import {getTreeSections, getStation, updateFieldValue} from '../api.jsx'
 import {Button} from 'react-bootstrap'
-import {Link} from 'react-router-dom'
 import styles from './styles.jsx';
 import * as filters from './filter.jsx';
-import {updateFieldValue} from '../api.jsx'
+import Alert from 'react-s-alert';
+import 'react-s-alert/dist/s-alert-default.css';
+import 'react-s-alert/dist/s-alert-css-effects/slide.css';
+
+const updateFieldValueUrl = 'section/update';
 
 
 // Example: Customising The Header Decorator To Include Icons
@@ -32,24 +36,86 @@ class TreeView extends React.Component {
     constructor() {
         super();
         this.onToggle = this.onToggle.bind(this);
-        this.handleSubmit = this.handleSubmit.bind(this);
+        this.updateFieldValue = this.updateFieldValue.bind(this);
+        this.inverseEditState = this.inverseEditState.bind(this);
+        this.loadTreeSections = this.loadTreeSections.bind(this);
+        this.loadStationData = this.loadStationData.bind(this);
+        this.setViewMode = this.setViewMode.bind(this);
+        this.setEditMode = this.setEditMode.bind(this);
+        this.testSubmit = this.testSubmit.bind(this);
         this.fieldValueListGeneration = this.fieldValueListGeneration.bind(this);
         this.state = {
             data:[],
-            fieldValueList: []
+            station: [],
+            fieldValueList: [],
+            isEdit: false,
+            stationId: null
         };
     }
 
-    fieldValueListGeneration(id, fieldValue){
+    componentDidMount() {
+        this.setState({stationId: this.props.match.params.id});
+        this.loadTreeSections(this.props.match.params.id);
+        this.loadStationData(this.props.match.params.id)
+    }
+
+    loadTreeSections(stationId){
+        getTreeSections(stationId).then(result => {
+            this.setState({
+                data: result})
+        }).catch((status, err) => {
+            console.log('err');
+            console.log(err);
+        });
+    }
+
+    loadStationData(stationId){
+        getStation(stationId).then(result => {
+            this.setState({
+                station: result})
+        })
+            .catch((status, err) => {
+                console.log('err');
+                console.log(err);
+            });
+    }
+
+    updateFieldValue(){
+        console.log(this.state.fieldValueList);
+        updateFieldValue(this.state.fieldValueList)
+            .catch((status, err) => {
+                console.log('err');
+                console.log(err);
+            });
+    }
+
+    setViewMode(event){
+        event.preventDefault();
+        this.updateFieldValue();
+        this.loadStationData(this.state.stationId);
+        this.inverseEditState();
+    }
+
+    setEditMode(event){
+        event.preventDefault();
+        this.loadStationData(this.state.stationId);
+        this.inverseEditState();
+    }
+
+    inverseEditState(){
+        this.setState({isEdit: !this.state.isEdit});
+    }
+
+    fieldValueListGeneration(id, fieldValue) {
         let IdFieldValuePair;
 
-        if(typeof fieldValue==='number' && (fieldValue%1)===0){
+        if (typeof fieldValue === 'number' && (fieldValue % 1) === 0) {
             IdFieldValuePair = {
                 id: id,
                 intValue: fieldValue,
                 textValue: ""
             };
-        } else{
+        } else {
             IdFieldValuePair = {
                 id: id,
                 intValue: 0,
@@ -59,41 +125,18 @@ class TreeView extends React.Component {
 
         let tempFieldValueList = this.state.fieldValueList;
 
-        if(!tempFieldValueList.length){
+        if (!tempFieldValueList.length) {
             tempFieldValueList.push(IdFieldValuePair);
-            this.setState({ fieldValueList: tempFieldValueList});
-        } else
-            if(IdFieldValuePair.id === tempFieldValueList[tempFieldValueList.length-1].id){
-            tempFieldValueList.pop();
-            tempFieldValueList.push(IdFieldValuePair);
-            this.setState({ fieldValueList: tempFieldValueList});
-            } else {
-                tempFieldValueList.push(IdFieldValuePair);
-                this.setState({ fieldValueList: tempFieldValueList});
+            this.setState({fieldValueList: tempFieldValueList});
+        } else {
+            for (let i = 0; i < tempFieldValueList.length; i++) {
+                if (tempFieldValueList[i].id === IdFieldValuePair.id) {
+                    tempFieldValueList.splice(i,1);
+                }
             }
-    }
-
-    handleSubmit(event){
-        event.preventDefault();
-        console.log(this.state.fieldValueList);
-        updateFieldValue(this.state.fieldValueList)
-            .catch((status, err) => {
-            console.log('err');
-            console.log(err);
-        });
-
-    }
-
-    componentDidMount() {
-        let stationId = this.props.match.params.id;
-
-        getTreeSections(stationId).then(result => {
-            this.setState({
-                data: result})
-        }).catch((status, err) => {
-            console.log('err');
-            console.log(err);
-        });
+            tempFieldValueList.push(IdFieldValuePair);
+            this.setState({fieldValueList: tempFieldValueList});
+            }
     }
 
     onToggle(node, toggled) {
@@ -121,25 +164,40 @@ class TreeView extends React.Component {
         this.setState({data: filtered});
     }
 
+    testSubmit(event) {
+        console.log(this.state.fieldValueList);
+        event.preventDefault();
+        fetch(updateFieldValueUrl,
+            {   method: 'PATCH',
+                credentials: 'same-origin',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(this.state.fieldValueList)
+            })
+            .then(
+                () => {this.loadStationData(this.state.stationId)}
+            )
+            .then(
+                ()=>{
+                    Alert.success("Отредактировано элементов: " + this.state.fieldValueList.length + " шт.",
+                        {
+                            position: 'top-right',
+                            effect: 'slide',
+                            offset: 200
+                        });
+                }
+            )
+            .then(
+                ()=>{this.setState({ fieldValueList: []})}
+            )
+            .then(this.inverseEditState)
+            .catch( err => console.error(err));
+    }
+
     render() {
+
         const {data: stateData, cursor} = this.state;
-
-        let stationId = stateData.id;
-        let button;
-
-        if(this.props.isEdit){
-            button =<div className="table-row">
-                <Button bsStyle="success" onClick={this.handleSubmit}>
-                    <Link to={"/station/" + stationId}>Сохранить</Link>
-                </Button>
-            </div>;
-        } else{
-            button = <div className="table-row">
-                <Button bsStyle="danger">
-                    <Link to={"/stationEditMode/" + stationId}>Редактировать</Link>
-                </Button>
-            </div>;
-        }
 
         return (
             <div>
@@ -161,12 +219,12 @@ class TreeView extends React.Component {
                                />
                 </div>
                 <div style={styles.component}>
-                    <NodeViewer node={cursor} stationId={stateData.id} isEdit={this.props.isEdit} fieldValueListGeneration={this.fieldValueListGeneration}/>
+                    <NodeViewer node={cursor} station={this.state.station} isEdit={this.state.isEdit} fieldValueListGeneration={this.fieldValueListGeneration}/>
                 </div>
-                {button}
+                <SaveEditButton isEdit={this.state.isEdit} testSubmit={this.testSubmit} setEditMode={this.setEditMode}/>
+                <Alert stack={true} timeout={5000} />
             </div>
         );
     }
 }
-// nodeviewer style
 export default TreeView;

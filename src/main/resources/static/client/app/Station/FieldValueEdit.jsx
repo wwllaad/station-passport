@@ -42,7 +42,7 @@ class FieldValueEdit extends React.Component {
         return (
             <div className="table-cell">
                 <form className="form">
-                        <input type="text" placeholder="fieldValue" className="form-control"  name="fieldValue" value={this.state.fieldValue} onChange={this.handleChange}/>
+                        <input type="text" className="form-control"  name="fieldValue" value={this.state.fieldValue} onChange={this.handleChange}/>
                 </form>
             </div>
         );

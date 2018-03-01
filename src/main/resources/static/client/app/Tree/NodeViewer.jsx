@@ -1,10 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import StationView from "../Station/StationView.jsx";
+import StationTable from '../Station/StationTable.jsx'
 import {Button} from 'react-bootstrap'
 
-const HELP_MSG = 'Выберите секцию для просмотра...';
-const HELP_MSG_EDIT_VIEW = 'Выберите секцию для редактирования...';
+const HELP_MSG =            'Выберите секцию для просмотра...';
+const HELP_MSG_EDIT_VIEW =  'Выберите секцию для редактирования...';
 
 class NodeViewer extends React.Component {
 
@@ -23,7 +23,7 @@ class NodeViewer extends React.Component {
         if (!this.props.node || this.props.node.children) {
             data = msg;
         } else {
-            data = <StationView stationId={this.props.stationId} sectionId={this.props.node.id} isEdit={this.props.isEdit} fieldValueListGeneration={this.props.fieldValueListGeneration}/>;
+            data = <StationTable station={this.props.station} sectionId={this.props.node.id} isEdit={this.props.isEdit} fieldValueListGeneration={this.props.fieldValueListGeneration}/>;
         }
         return (
                 <div>

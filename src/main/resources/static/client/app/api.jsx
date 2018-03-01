@@ -5,7 +5,6 @@ const treeSections = 'section/treeformsections?id=';
 const updateFieldValueUrl = 'section/update';
 const getOptions = {credentials: 'same-origin'};
 
-
 export function getStation(stationId){
     return new Promise((resolve, reject) => {
         fetch(stationApi + stationId, getOptions)
