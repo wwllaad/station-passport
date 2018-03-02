@@ -1,32 +1,24 @@
 import React, { Component } from 'react';
 import {Button} from 'react-bootstrap'
 
-
 class SaveEditButton extends React.Component {
     constructor(props) {
         super(props);
     }
 
     render() {
-
         let button;
-
         if(this.props.isEdit){
-            button =<div className="table-row">
-                <Button bsStyle="success" onClick={this.props.testSubmit}>
+            button = <Button bsStyle="success" onClick={this.props.testSubmit}>
                     Сохранить
-                </Button>
-            </div>;
+                    </Button>;
         } else {
-            button = <div className="table-row">
-                <Button bsStyle="danger" onClick={this.props.setEditMode}>
+            button = <Button bsStyle="danger" onClick={this.props.setEditMode}>
                     Редактировать
-                </Button>
-            </div>;
+                </Button>;
         }
-
         return (
-            <div>
+            <div className="custom-button" >
                 {button}
             </div>
         );

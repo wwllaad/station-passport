@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { Navbar, NavItem, Nav, NavDropdown, MenuItem } from "react-bootstrap";
-import {Link} from 'react-router-dom'
-import "../../css/App.css"
+import { NavLink } from 'react-router-dom'
 
 class AppNavbar extends React.Component {
     constructor(props) {
@@ -10,17 +9,24 @@ class AppNavbar extends React.Component {
 
     render() {
         return (
-            <Navbar inverse collapseOnSelect>
+            <Navbar inverse collapseOnSelect fixedTop={true}>
                 <Navbar.Header>
                     <Navbar.Brand>
-                        <Link to="/">Метеостанции Крыма</Link>
+                        <NavLink to="/">Метеостанции Крыма</NavLink>
                     </Navbar.Brand>
                     <Navbar.Toggle />
                 </Navbar.Header>
                 <Navbar.Collapse>
                     <Nav>
                         <NavItem>
-                          <Link to="/stations">Список станций</Link>
+                          <NavLink to="/stations"
+                                   activeStyle={{
+                                       font: 'bold',
+                                       color: '#5c728a',
+                                       textDecoration: 'none'
+                                   }}>
+                              Список станций
+                          </NavLink>
                         </NavItem>
                     </Nav>
                 </Navbar.Collapse>

@@ -9,9 +9,7 @@ const HELP_MSG_EDIT_VIEW =  'Выберите секцию для редакти
 class NodeViewer extends React.Component {
 
     render() {
-
-        let msg;
-
+       let msg;
        if(this.props.isEdit){
            msg = HELP_MSG_EDIT_VIEW;
        } else{

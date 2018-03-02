@@ -9,17 +9,11 @@ class FieldValueEdit extends React.Component {
             fieldValue: ""
         };
         this.handleChange = this.handleChange.bind(this);
-        // this.sendFieldValue = this.sendFieldValue.bind(this);
     }
-
-    // sendFieldValue(){
-    //     this.props.fieldValueListGeneration(this.state.fieldValueId, this.state.fieldValue)
-    // }
 
     handleChange(event) {
         this.setState({[event.target.name]: event.target.value});
         this.props.fieldValueListGeneration(this.state.fieldValueId, event.target.value)
-        // this.sendFieldValue();
     }
 
     componentDidMount() {

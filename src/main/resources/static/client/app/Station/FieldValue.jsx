@@ -7,7 +7,6 @@ class FieldValue extends React.Component {
 
 
     render() {
-
         let textValue = this.props.field.textValue;
         let numValue = this.props.field.intValue;
         let dataOut;
@@ -17,7 +16,6 @@ class FieldValue extends React.Component {
         } else {
             dataOut = textValue;
         }
-
         return(
             <div className="table-cell">{dataOut}</div>
         )

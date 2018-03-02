@@ -1,5 +1,4 @@
 'use strict';
-
 import React from 'react';
 import {Treebeard, decorators} from 'react-treebeard';
 import NodeViewer from './NodeViewer.jsx';
@@ -11,9 +10,7 @@ import * as filters from './filter.jsx';
 import Alert from 'react-s-alert';
 import 'react-s-alert/dist/s-alert-default.css';
 import 'react-s-alert/dist/s-alert-css-effects/slide.css';
-
 const updateFieldValueUrl = 'section/update';
-
 
 // Example: Customising The Header Decorator To Include Icons
 decorators.Header = ({style, node}) => {
@@ -165,40 +162,49 @@ class TreeView extends React.Component {
     }
 
     testSubmit(event) {
-        console.log(this.state.fieldValueList);
-        event.preventDefault();
-        fetch(updateFieldValueUrl,
-            {   method: 'PATCH',
-                credentials: 'same-origin',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify(this.state.fieldValueList)
-            })
-            .then(
-                () => {this.loadStationData(this.state.stationId)}
-            )
-            .then(
-                ()=>{
-                    Alert.success("Отредактировано элементов: " + this.state.fieldValueList.length + " шт.",
-                        {
-                            position: 'top-right',
-                            effect: 'slide',
-                            offset: 200
-                        });
-                }
-            )
-            .then(
-                ()=>{this.setState({ fieldValueList: []})}
-            )
-            .then(this.inverseEditState)
-            .catch( err => console.error(err));
+
+        let fieldValueList = this.state.fieldValueList;
+        if(fieldValueList.length === 0){
+            this.inverseEditState();
+        } else {
+            console.log(fieldValueList);
+            event.preventDefault();
+            fetch(updateFieldValueUrl,
+                {
+                    method: 'PATCH',
+                    credentials: 'same-origin',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(fieldValueList)
+                })
+                .then(
+                    () => {
+                        this.loadStationData(this.state.stationId)
+                    }
+                )
+                .then(
+                    () => {
+                            Alert.success("Отредактировано элементов: " + fieldValueList.length + " шт.",
+                                {
+                                    position: 'top-right',
+                                    effect: 'slide',
+                                    offset: 60
+                                });
+                    }
+                )
+                .then(
+                    () => {
+                        this.setState({fieldValueList: []})
+                    }
+                )
+                .then(this.inverseEditState)
+                .catch(err => console.error(err));
+        }
     }
 
     render() {
-
         const {data: stateData, cursor} = this.state;
-
         return (
             <div>
                 <div style={styles.searchBox}>
@@ -217,11 +223,11 @@ class TreeView extends React.Component {
                                decorators={decorators}
                                onToggle={this.onToggle}
                                />
+                    <SaveEditButton isEdit={this.state.isEdit} testSubmit={this.testSubmit} setEditMode={this.setEditMode}/>
                 </div>
-                <div style={styles.component}>
+                <div style={styles.table}>
                     <NodeViewer node={cursor} station={this.state.station} isEdit={this.state.isEdit} fieldValueListGeneration={this.fieldValueListGeneration}/>
                 </div>
-                <SaveEditButton isEdit={this.state.isEdit} testSubmit={this.testSubmit} setEditMode={this.setEditMode}/>
                 <Alert stack={true} timeout={5000} />
             </div>
         );

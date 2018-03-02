@@ -1,3 +1,6 @@
+body {
+    padding-top: 70px;
+}
 h2{
     text-align: center;
 }
@@ -7,12 +10,7 @@ h4{
 
 a:hover{
     text-decoration: none;
-    color: #7c7c7c;
-}
-
-a:active{
-    text-decoration: none;
-    color: #b7b7b7;
+    color: #afbacc;
 }
 
 a{
@@ -21,7 +19,6 @@ a{
 }
 
 .table{
-    margin: 15px;
     display: table;
     border-collapse: collapse;
 }
@@ -52,9 +49,40 @@ img{
 }
 #station-list{
     width: 95%;
+    margin-left: 20px;
 }
 
 .carousel-control.left,
 .carousel-control.right {
     background-image: none
+}
+
+.custom-button{
+    margin-top: 20px;
+}
+
+.navbar{
+    border-radius: 0;
+}
+
+.footer-style{
+    background-color: #31414f;
+    font-size: 15px;
+    color: #6e88a4;
+    border-top: 1px solid;
+    text-align: center;
+    left: 0;
+    bottom: 0;
+    height: 50px;
+    width: 100%;
+    padding: 12px 0;
+}
+
+.wrapper {
+    display: flex;
+    min-height: 100vh;
+    flex-direction: column;
+}
+.content {
+    flex: 1;
 }

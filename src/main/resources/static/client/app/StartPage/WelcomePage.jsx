@@ -5,6 +5,7 @@ import crimea2 from '../images/crimea2.jpg'
 import crimea3 from '../images/crimea3.jpg'
 import { Carousel } from "react-bootstrap";
 
+
 class WelcomePage extends React.Component {
     constructor(props) {
         super(props);

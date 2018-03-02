@@ -22,13 +22,11 @@ class StationsList extends React.Component {
     }
 
     render() {
-
         if(!this.state.stations){
             return(
                 <div>Loading....</div>
             )
         }
-
         let stationsList = this.state.stations.map(station =>
             <StationSimpleView key={station.id} station={station}/>);
         return (

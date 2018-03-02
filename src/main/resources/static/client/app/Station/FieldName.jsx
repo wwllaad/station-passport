@@ -7,9 +7,7 @@ class FieldName extends React.Component {
 
 
     render() {
-
         let fieldName = this.props.field.name;
-
         return (
             <div className="table-cell">{fieldName}</div>
         );
