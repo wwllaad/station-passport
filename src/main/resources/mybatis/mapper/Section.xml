@@ -14,4 +14,8 @@
         SELECT * FROM sections WHERE section_id=#{id}
     </select>
 
+    <select id="getAllSectionsId" resultType="java.lang.Integer">
+        SELECT (section_id) FROM sections
+    </select>
+
 </mapper>

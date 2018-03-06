@@ -28,6 +28,16 @@ class AppNavbar extends React.Component {
                               Список станций
                           </NavLink>
                         </NavItem>
+                        <NavItem>
+                            <NavLink to="/newstation"
+                                     activeStyle={{
+                                         font: 'bold',
+                                         color: '#5c728a',
+                                         textDecoration: 'none'
+                                     }}>
+                                Добавить станцию
+                            </NavLink>
+                        </NavItem>
                     </Nav>
                 </Navbar.Collapse>
             </Navbar>

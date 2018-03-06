@@ -16,4 +16,11 @@
         SELECT * FROM stations WHERE station_id=#{id}
     </select>
 
+    <select id="getStationIdByName" parameterType="java.lang.String" resultType="java.lang.Integer">
+        SELECT station_id FROM stations WHERE station_name=#{name}
+    </select>
+
+    <insert id="addNewStation" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO stations (station_name) VALUES(#{name})
+    </insert>
 </mapper>

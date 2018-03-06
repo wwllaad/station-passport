@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import {FormGroup, ControlLabel, FormControl, HelpBlock} from 'react-bootstrap'
 
 class FieldValueEdit extends React.Component {
     constructor(props, context) {

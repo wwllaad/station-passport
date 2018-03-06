@@ -8,6 +8,7 @@ import com.sevgmo.stationpassport.model.Station;
 import com.sevgmo.stationpassport.serialize.*;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Service;
+
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -37,6 +38,17 @@ public class StationService {
         Station station = sqlSession.selectOne("getStationById", id);
         return new StationDTO(station);
     }
+
+    @JsonSerialize
+    public List<CustomFieldDTO> getAllCustomFieldDTO(){
+        List<CustomField> customFieldList = sqlSession.selectList("getAllCustomFields");
+        List<CustomFieldDTO> customFieldDTOList = new ArrayList<>();
+        for(CustomField customField: customFieldList){
+            customFieldDTOList.add(new CustomFieldDTO(customField));
+        }
+        return customFieldDTOList;
+    }
+
 
     @JsonSerialize
     public CustomFieldDTO getCustomFieldDTOById(int id){
@@ -157,5 +169,24 @@ public class StationService {
             customFieldValueInsertDTO = new CustomFieldValueInsertDTO(customFieldDTO.getId(), stationId, textValue, intValue);
             sqlSession.insert("insertBlankCustomFieldValue", customFieldValueInsertDTO);
         }
+    }
+
+    @JsonSerialize
+    public StationDTO addNewStation(String name) {
+        List<StationDTO> stationDTOList = getAllStationsDTO();
+        for (StationDTO stationDTO: stationDTOList){
+            if (stationDTO.getName().toLowerCase().equals(name.toUpperCase())){
+                System.out.println("Error: same station name exist.");
+                return null;
+            }
+        }
+        sqlSession.insert("addNewStation", name);
+        int stationId = sqlSession.selectOne("getStationIdByName", name);
+        List<Integer> sectionIdList = sqlSession.selectList("getAllSectionsId");
+        for (Integer sectionId: sectionIdList){
+            addBlankFieldsBySectionAndStationId(stationId, sectionId);
+        }
+
+        return getStationDTOById(stationId);
     }
 }

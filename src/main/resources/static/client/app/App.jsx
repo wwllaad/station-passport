@@ -5,6 +5,7 @@ import StationsList from './Stations/StationsList.jsx'
 import WelcomePage from './StartPage/WelcomePage.jsx'
 import TreeView from './Tree/TreeView.jsx'
 import Footer from './Footer/Footer.jsx'
+import AddNewStation from './AddNewStation/AddNewStation.jsx'
 
 class App extends React.Component {
     constructor(props) {
@@ -21,6 +22,7 @@ class App extends React.Component {
                         <Route exact path="/"        component={WelcomePage}/>
                         <Route path="/stations"      component={StationsList}/>
                         <Route path="/station/:id"   component={TreeView}/>
+                        <Route path="/newstation"    component={AddNewStation}/>
                         </div>
                     </HashRouter>
                 </div>

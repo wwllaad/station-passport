@@ -6,6 +6,7 @@ const updateFieldValueUrl = 'section/update';
 function addBlankFieldUrl(stationId, sectionId) {
     return  ('section/addsectionfields?stationId='+stationId+'&sectionId='+sectionId)
 }
+const addNewStationUrl = 'station/add?name=';
 const getOptions = {credentials: 'same-origin'};
 function patchOptions(data) {
     return({
@@ -42,3 +43,9 @@ export function updateFieldValue(data) {
 export function addBlankField(stationId, sectionId) {
     return fetch(addBlankFieldUrl(stationId, sectionId), getOptions)
 }
+
+export function addNewStation(stationName) {
+    return fetch(addNewStationUrl+stationName, getOptions)
+}
+
+

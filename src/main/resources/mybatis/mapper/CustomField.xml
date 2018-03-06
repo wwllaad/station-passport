@@ -20,5 +20,9 @@
         SELECT * FROM customfields WHERE customfield_section_id=#{id}
     </select>
 
+    <select id="getAllCustomFields" resultMap="customFields">
+        SELECT * FROM customfields
+    </select>
+
 </mapper>
 

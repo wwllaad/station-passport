@@ -60,6 +60,10 @@ img{
 .custom-button{
     margin-top: 20px;
 }
+.submit-new-station-button{
+    margin-top: 20px;
+    float: right;
+}
 
 .navbar{
     border-radius: 0;
@@ -85,4 +89,12 @@ img{
 }
 .content {
     flex: 1;
+}
+
+#newStation{
+    position: absolute;
+    width: 300px;
+    top: 50%;
+    left: 50%;
+    margin: -100px 0 0 -150px;
 }

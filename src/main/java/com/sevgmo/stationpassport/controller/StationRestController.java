@@ -30,6 +30,11 @@ public class StationRestController {
     private StationApiFormDTO getStationApiDTOById(@RequestParam int id){
         return stationService.getStationApiDTOById(id);
     }
+
+    @GetMapping("/add")
+    private StationDTO addNewStation(@RequestParam String name){
+        return stationService.addNewStation(name);
+    }
 }
 
 
