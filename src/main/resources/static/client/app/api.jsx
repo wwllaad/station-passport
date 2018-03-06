@@ -1,107 +1,44 @@
-const stationApi = '/station/api?id=';
-const stationsAll = '/station/all';
-const usersAll = '/users/all';
-const treeSections = 'section/treeformsections?id=';
+const stationApiUrl = '/station/api?id=';
+const stationsAllUrl = '/station/all';
+const usersAllUrl = '/users/all';
+const treeSectionsUrl= 'section/treeformsections?id=';
 const updateFieldValueUrl = 'section/update';
+function addBlankFieldUrl(stationId, sectionId) {
+    return  ('section/addsectionfields?stationId='+stationId+'&sectionId='+sectionId)
+}
 const getOptions = {credentials: 'same-origin'};
+function patchOptions(data) {
+    return({
+        method: 'PATCH',
+        credentials: 'same-origin',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(data)
+    })
+}
 
 export function getStation(stationId){
-    return new Promise((resolve, reject) => {
-        fetch(stationApi + stationId, getOptions)
-            .then(parseJSON)
-            .then((response) => {
-                if (response.ok) {
-                    return resolve(response.json);
-                }
-                // extract the error from the server's json
-                return reject(response.json.meta.error);
-            })
-            .catch((error) => reject({
-                networkError: error.message,
-            }));
-    });
+    return fetch(stationApiUrl + stationId, getOptions)
 }
 
 export function getAllStations(){
-    return new Promise((resolve, reject) => {
-        fetch(stationsAll, getOptions)
-            .then(parseJSON)
-            .then((response) => {
-                if (response.ok) {
-                    return resolve(response.json);
-                }
-                // extract the error from the server's json
-                return reject(response.json.meta.error);
-            })
-            .catch((error) => reject({
-                networkError: error.message,
-            }));
-    });
+    return fetch(stationsAllUrl, getOptions)
 }
 
+
 export function getAllUsers(){
-    return new Promise((resolve, reject) => {
-        fetch(usersAll, getOptions)
-            .then(parseJSON)
-            .then((response) => {
-                if (response.ok) {
-                    return resolve(response.json);
-                }
-                // extract the error from the server's json
-                return reject(response.json.meta.error);
-            })
-            .catch((error) => reject({
-                networkError: error.message,
-            }));
-    });
+    return fetch(usersAllUrl, getOptions)
 }
 
 export function getTreeSections(stationId){
-        return new Promise((resolve, reject) => {
-            fetch(treeSections + stationId, getOptions)
-                .then(parseJSON)
-                .then((response) => {
-                    if (response.ok) {
-                        return resolve(response.json);
-                    }
-                    // extract the error from the server's json
-                    return reject(response.json.meta.error);
-                })
-                .catch((error) => reject({
-                    networkError: error.message,
-                }));
-        });
+        return fetch(treeSectionsUrl + stationId, getOptions)
     }
 
-export function updateFieldValue(data){
-    return new Promise((resolve, reject) => {
-        fetch(updateFieldValueUrl, {   method: 'PATCH',
-            credentials: 'same-origin',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(data)
-        })
-            .then(parseJSON)
-            .then((response) => {
-                if (response.ok) {
-                    return resolve(response.json);
-                }
-                // extract the error from the server's json
-                return reject(response.json.meta.error);
-            })
-            .catch((error) => reject({
-                networkError: error.message,
-            }));
-    });
+export function updateFieldValue(data) {
+    return fetch(updateFieldValueUrl,patchOptions(data));
 }
 
-function parseJSON(response) {
-    return new Promise((resolve) => response.json()
-        .then((json) => resolve({
-            status: response.status,
-            ok: response.ok,
-            json,
-        })));
+export function addBlankField(stationId, sectionId) {
+    return fetch(addBlankFieldUrl(stationId, sectionId), getOptions)
 }
-

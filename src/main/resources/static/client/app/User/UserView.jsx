@@ -12,10 +12,11 @@ class UserView extends React.Component {
 
     componentDidMount() {
 
-        getAllUsers().then(result => {
-            this.setState({
-                users: result})
-        }).catch((status, err) => {
+        getAllUsers()
+            .then((response) => response.json())
+            .then(result => {this.setState({users: result})
+        })
+            .catch((status, err) => {
             console.log('err');
             console.log(err);
         });

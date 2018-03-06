@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import FieldName from './FieldName.jsx';
 import FieldValue from './FieldValue.jsx';
 import FieldValueEdit from './FieldValueEdit.jsx';
+import NewFieldButton from './NewFieldButton.jsx'
 
 class Section extends React.Component {
     constructor(props) {
@@ -15,10 +16,14 @@ class Section extends React.Component {
             <FieldName key={field.id} field={field}/>);
 
         let fieldValue;
+        let addButton = null;
 
         if(this.props.isEdit){
             fieldValue = this.props.section.customFieldValueDTOList.map(field =>
                 <FieldValueEdit key={field.id} field={field} fieldValueListGeneration={this.props.fieldValueListGeneration}/>);
+            addButton = <NewFieldButton addBlankField={this.props.addBlankField}
+                                        sectionId={this.props.section.id}
+                                        stationId={this.props.stationId}/>;
         } else {
             fieldValue = this.props.section.customFieldValueDTOList.map(field =>
                 <FieldValue key={field.id} field={field}/>);
@@ -44,9 +49,8 @@ class Section extends React.Component {
                 <div className="table-row-group">
                     <div className="table-row">
                         <div className="table-row">{fieldName}</div>
-
                         {fieldValuesFormatted}
-
+                        {addButton}
                     </div>
                 </div>
             </div>

@@ -16,5 +16,9 @@
         SELECT * FROM customfields WHERE customfield_id=#{id}
     </select>
 
+    <select id="getCustomFieldBySectionId" parameterType="java.lang.Integer" resultMap="customFields">
+        SELECT * FROM customfields WHERE customfield_section_id=#{id}
+    </select>
+
 </mapper>
 

@@ -38,4 +38,9 @@ public class SectionRestController {
               stationService.updateTextFieldValue(customFieldValueDTO);
         }
     }
+
+    @GetMapping("/addsectionfields")
+        private void addBlankFieldsBySectionAndStationId(@RequestParam int stationId, int sectionId){
+        stationService.addBlankFieldsBySectionAndStationId(stationId, sectionId);
+    }
 }

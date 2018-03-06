@@ -12,7 +12,7 @@
         SELECT * FROM stations
     </select>
 
-    <select id="getStationNameById" parameterType="java.lang.Integer" resultMap="stations">
+    <select id="getStationById" parameterType="java.lang.Integer" resultMap="stations">
         SELECT * FROM stations WHERE station_id=#{id}
     </select>
 

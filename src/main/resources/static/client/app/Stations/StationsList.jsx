@@ -12,13 +12,13 @@ class StationsList extends React.Component {
 
     componentDidMount() {
 
-        getAllStations().then(result => {
-            this.setState({
-                stations: result})
+        getAllStations()
+            .then((response) => response.json())
+            .then(result => {this.setState({stations: result})
         }).catch((status, err) => {
-                console.log('err');
-                console.log(err);
-            });
+            console.log('err');
+            console.log(err);
+        });
     }
 
     render() {

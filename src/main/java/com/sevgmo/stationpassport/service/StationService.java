@@ -9,6 +9,7 @@ import com.sevgmo.stationpassport.serialize.*;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Service;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 @Service
@@ -33,7 +34,7 @@ public class StationService {
 
     @JsonSerialize
     public StationDTO getStationDTOById(int id){
-        Station station = sqlSession.selectOne("getStationNameById", id);
+        Station station = sqlSession.selectOne("getStationById", id);
         return new StationDTO(station);
     }
 
@@ -41,6 +42,16 @@ public class StationService {
     public CustomFieldDTO getCustomFieldDTOById(int id){
         CustomField customField = sqlSession.selectOne("getCustomFieldById", id);
         return new CustomFieldDTO(customField);
+    }
+
+    @JsonSerialize
+    public List<CustomFieldDTO> getCustomFieldDTOBySectionId(int id){
+        List<CustomField> customFieldList = sqlSession.selectList("getCustomFieldBySectionId", id);
+        List<CustomFieldDTO> customFieldDTOList = new ArrayList<>();
+        for(CustomField customField: customFieldList){
+            customFieldDTOList.add(new CustomFieldDTO(customField));
+        }
+        return customFieldDTOList;
     }
 
     @JsonSerialize
@@ -67,7 +78,7 @@ public class StationService {
 
     @JsonSerialize
     public StationApiFormDTO getStationApiDTOById(int id) {
-        List<CustomFieldValueDTO> customFieldValueDTOList = this.getCustomFieldValueDTOByStationId(id);
+        List<CustomFieldValueDTO> customFieldValueDTOList = getCustomFieldValueDTOByStationId(id);
 
         SectionApiFormDTO sectionApiFormDTO;
         List<SectionApiFormDTO> tempSectionApiFormDTOList = new ArrayList<>();
@@ -76,7 +87,6 @@ public class StationService {
 
         String tempSectionName = customFieldValueDTOList.get(0).getCustomFieldDTO().getSection().getName();
         int tempSectionId = customFieldValueDTOList.get(0).getCustomFieldDTO().getSection().getId();
-
         sectionApiFormDTO = new SectionApiFormDTO(tempSectionId, tempSectionName, tempCustomFieldDTOList, tempCustomFieldValueDTOList);
         tempSectionApiFormDTOList.add(sectionApiFormDTO);
 
@@ -92,20 +102,60 @@ public class StationService {
                 tempSectionApiFormDTOList.add(sectionApiFormDTO);
             }
                 tempCustomFieldValueDTOList.add(customFieldValueDTO);
-
             //one section can contain multiple CustomFieldValues ​​but only one set of CustomField names
             if(!customFieldIdBuffer.contains(customFieldValueDTO.getCustomFieldDTO().getId())) {
                 tempCustomFieldDTOList.add(customFieldValueDTO.getCustomFieldDTO());
                 customFieldIdBuffer.add(customFieldValueDTO.getCustomFieldDTO().getId());
             }
-
         }
-
+        tempSectionApiFormDTOList = sortSectionApiFormDTOByCustomFieldId(tempSectionApiFormDTOList);
         String stationName = customFieldValueDTOList.get(0).getStationDTO().getName();
         return new StationApiFormDTO(id, stationName, tempSectionApiFormDTOList);
     }
 
+    private List<SectionApiFormDTO> sortSectionApiFormDTOByCustomFieldId(List<SectionApiFormDTO> sectionApiFormDTOList){
+        List<SectionApiFormDTO> sectionApiFormDTOListUnsorted = sectionApiFormDTOList;
+        Iterator<SectionApiFormDTO> i = sectionApiFormDTOListUnsorted.iterator();
+        List<Integer> customFieldIdBuffer = new ArrayList<>();
+        List<CustomFieldValueDTO> customFieldValueDTOList = new ArrayList<>();
+        int sectionId = -1;
+        while(i.hasNext()){
+            SectionApiFormDTO sectionApiFormDTO = i.next();
+            if (!customFieldIdBuffer.contains(sectionApiFormDTO.getId())){
+                customFieldIdBuffer.add(sectionApiFormDTO.getId());
+            } else {
+                customFieldValueDTOList = sectionApiFormDTO.getCustomFieldValueDTOList();
+                sectionId = sectionApiFormDTO.getId();
+                i.remove();
+            }
+        }
+        for (SectionApiFormDTO sectionApiFormDTO: sectionApiFormDTOListUnsorted){
+            if(sectionId == sectionApiFormDTO.getId()){
+                sectionApiFormDTO.getCustomFieldValueDTOList().addAll(customFieldValueDTOList);
+            }
+        }
+        return sectionApiFormDTOListUnsorted;
+    }
+
     public void updateTextFieldValue(CustomFieldValueDTO customFieldValueDTO) {
         sqlSession.update("updateFieldValue", customFieldValueDTO);
+    }
+
+    public void addBlankFieldsBySectionAndStationId(int stationId, int sectionId) {
+        List<CustomFieldDTO> customFieldDTOList = getCustomFieldDTOBySectionId(sectionId);
+        CustomFieldValueInsertDTO customFieldValueInsertDTO;
+        String textValue;
+        int intValue;
+        for(CustomFieldDTO customFieldDTO: customFieldDTOList){
+            if (customFieldDTO.getType().equals("TEXT")){
+                textValue = " ";
+                intValue = 0;
+            } else {
+                textValue = "NULL";
+                intValue = 0;
+            }
+            customFieldValueInsertDTO = new CustomFieldValueInsertDTO(customFieldDTO.getId(), stationId, textValue, intValue);
+            sqlSession.insert("insertBlankCustomFieldValue", customFieldValueInsertDTO);
+        }
     }
 }

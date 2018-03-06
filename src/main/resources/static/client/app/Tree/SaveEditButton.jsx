@@ -9,7 +9,7 @@ class SaveEditButton extends React.Component {
     render() {
         let button;
         if(this.props.isEdit){
-            button = <Button bsStyle="success" onClick={this.props.testSubmit}>
+            button = <Button bsStyle="success" onClick={this.props.setViewMode}>
                     Сохранить
                     </Button>;
         } else {

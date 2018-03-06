@@ -20,6 +20,13 @@ public class CustomFieldValueDTO extends AbstractEntity {
         this.intValue = customFieldValue.getIntValue();
     }
 
+    public CustomFieldValueDTO(CustomFieldDTO customFieldDTO, StationDTO stationDTO, String textValue, Integer intValue){
+        this.customFieldDTO = customFieldDTO;
+        this.stationDTO = stationDTO;
+        this.textValue = textValue;
+        this.intValue = intValue;
+    }
+
     public CustomFieldValueDTO(int id) {
         super(id);
     }

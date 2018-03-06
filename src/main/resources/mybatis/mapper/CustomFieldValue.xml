@@ -8,11 +8,16 @@
         <id property="id" column="customfieldsvalue_id"/>
         <result property="textValue" column="customfieldsvalue_text_value"/>
         <result property="intValue" column="customfieldsvalue_numeric_value"/>
-        <association property="customField" column="customfieldsvalue_customfield_id" javaType="com.sevgmo.stationpassport.model.CustomField" select="mybatis.mapper.CustomField.getCustomFieldById"/>
-        <association property="station" column="customfieldsvalue_station_id" javaType="com.sevgmo.stationpassport.model.Station" select="mybatis.mapper.Station.getStationNameById"/>
+        <association property="customField" column="customfieldsvalue_customfield_id"
+                     javaType="com.sevgmo.stationpassport.model.CustomField"
+                     select="mybatis.mapper.CustomField.getCustomFieldById"/>
+        <association property="station" column="customfieldsvalue_station_id"
+                     javaType="com.sevgmo.stationpassport.model.Station"
+                     select="mybatis.mapper.Station.getStationById"/>
     </resultMap>
 
-    <select id=" getCustomFieldValueByStationId" parameterType="java.lang.Integer" resultMap="customFieldValue">
+    <select id=" getCustomFieldValueByStationId" parameterType="java.lang.Integer"
+            resultMap="customFieldValue">
         SELECT * FROM customfieldsvalues WHERE customfieldsvalue_station_id=#{id}
     </select>
 
@@ -23,5 +28,15 @@
     WHERE customfieldsvalue_id = #{id}
     </update>
 
+    <insert id="insertBlankCustomFieldValue" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO customfieldsvalues (customfieldsvalue_customfield_id,
+                                        customfieldsvalue_station_id,
+                                        customfieldsvalue_text_value,
+                                        customfieldsvalue_numeric_value)
+                                VALUES( #{customFieldId},
+                                        #{stationId},
+                                        #{textValue},
+                                        #{intValue})
+    </insert>
 </mapper>
 

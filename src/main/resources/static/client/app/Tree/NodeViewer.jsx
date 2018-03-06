@@ -21,7 +21,11 @@ class NodeViewer extends React.Component {
         if (!this.props.node || this.props.node.children) {
             data = msg;
         } else {
-            data = <StationTable station={this.props.station} sectionId={this.props.node.id} isEdit={this.props.isEdit} fieldValueListGeneration={this.props.fieldValueListGeneration}/>;
+            data = <StationTable station={this.props.station}
+                                 sectionId={this.props.node.id}
+                                 isEdit={this.props.isEdit}
+                                 fieldValueListGeneration={this.props.fieldValueListGeneration}
+                                 addBlankField={this.props.addBlankField}/>;
         }
         return (
                 <div>

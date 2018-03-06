@@ -3,14 +3,13 @@ import React from 'react';
 import {Treebeard, decorators} from 'react-treebeard';
 import NodeViewer from './NodeViewer.jsx';
 import SaveEditButton from './SaveEditButton.jsx';
-import {getTreeSections, getStation, updateFieldValue} from '../api.jsx'
+import {getTreeSections, getStation, updateFieldValue, addBlankField} from '../api.jsx'
 import {Button} from 'react-bootstrap'
 import styles from './styles.jsx';
 import * as filters from './filter.jsx';
 import Alert from 'react-s-alert';
 import 'react-s-alert/dist/s-alert-default.css';
 import 'react-s-alert/dist/s-alert-css-effects/slide.css';
-const updateFieldValueUrl = 'section/update';
 
 // Example: Customising The Header Decorator To Include Icons
 decorators.Header = ({style, node}) => {
@@ -39,7 +38,7 @@ class TreeView extends React.Component {
         this.loadStationData = this.loadStationData.bind(this);
         this.setViewMode = this.setViewMode.bind(this);
         this.setEditMode = this.setEditMode.bind(this);
-        this.testSubmit = this.testSubmit.bind(this);
+        this.addBlankField = this.addBlankField.bind(this);
         this.fieldValueListGeneration = this.fieldValueListGeneration.bind(this);
         this.state = {
             data:[],
@@ -57,39 +56,63 @@ class TreeView extends React.Component {
     }
 
     loadTreeSections(stationId){
-        getTreeSections(stationId).then(result => {
-            this.setState({
-                data: result})
-        }).catch((status, err) => {
-            console.log('err');
+        getTreeSections(stationId)
+            .then((response) => response.json())
+            .then(json => {this.setState({data: json})
+        })
+            .catch((status, err) => {
+            console.log('error');
             console.log(err);
         });
     }
 
     loadStationData(stationId){
-        getStation(stationId).then(result => {
-            this.setState({
-                station: result})
+        getStation(stationId)
+            .then((response) => response.json())
+            .then(result => {this.setState({station: result})
         })
             .catch((status, err) => {
-                console.log('err');
+                console.log('error');
                 console.log(err);
             });
     }
 
     updateFieldValue(){
-        console.log(this.state.fieldValueList);
-        updateFieldValue(this.state.fieldValueList)
-            .catch((status, err) => {
-                console.log('err');
-                console.log(err);
-            });
+        let fieldValueList = this.state.fieldValueList;
+        console.log(fieldValueList);
+        if(fieldValueList.length === 0){
+            this.inverseEditState();
+        } else {
+            updateFieldValue(this.state.fieldValueList)
+                .then(
+                    () => {
+                        Alert.success("Отредактировано элементов: " + fieldValueList.length + " шт.",
+                            {
+                                position: 'top-right',
+                                effect: 'slide',
+                                offset: 60,
+                                timeout: 5000
+                            });
+                    }
+                )
+                .then(
+                    () => {
+                        this.setState({fieldValueList: []})
+                    }
+                )
+                .then(() => {
+                    this.loadStationData(this.state.stationId)
+                })
+                .catch(err => {
+                    console.error(err);
+                    console.log('error');
+                })
+        }
     }
 
     setViewMode(event){
         event.preventDefault();
         this.updateFieldValue();
-        this.loadStationData(this.state.stationId);
         this.inverseEditState();
     }
 
@@ -106,11 +129,11 @@ class TreeView extends React.Component {
     fieldValueListGeneration(id, fieldValue) {
         let IdFieldValuePair;
 
-        if (typeof fieldValue === 'number' && (fieldValue % 1) === 0) {
+        if ((fieldValue % 1) === 0) {
             IdFieldValuePair = {
                 id: id,
                 intValue: fieldValue,
-                textValue: ""
+                textValue: "NULL"
             };
         } else {
             IdFieldValuePair = {
@@ -161,46 +184,27 @@ class TreeView extends React.Component {
         this.setState({data: filtered});
     }
 
-    testSubmit(event) {
-
-        let fieldValueList = this.state.fieldValueList;
-        if(fieldValueList.length === 0){
-            this.inverseEditState();
-        } else {
-            console.log(fieldValueList);
-            event.preventDefault();
-            fetch(updateFieldValueUrl,
-                {
-                    method: 'PATCH',
-                    credentials: 'same-origin',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify(fieldValueList)
-                })
-                .then(
+    addBlankField(stationId, sectionId){
+        addBlankField(stationId, sectionId)
+            // .then(
+            //     ()=>{
+            //         this.forceUpdate()
+            //     }
+            // )
+            .then(
                     () => {
                         this.loadStationData(this.state.stationId)
                     }
                 )
-                .then(
-                    () => {
-                            Alert.success("Отредактировано элементов: " + fieldValueList.length + " шт.",
-                                {
-                                    position: 'top-right',
-                                    effect: 'slide',
-                                    offset: 60
-                                });
-                    }
-                )
-                .then(
-                    () => {
-                        this.setState({fieldValueList: []})
-                    }
-                )
-                .then(this.inverseEditState)
-                .catch(err => console.error(err));
-        }
+            .then(
+                ()=>{
+                    this.loadTreeSections(this.state.stationId)
+                }
+            )
+            .catch(err => {
+                console.error(err);
+                console.log('error');
+            })
     }
 
     render() {
@@ -223,12 +227,16 @@ class TreeView extends React.Component {
                                decorators={decorators}
                                onToggle={this.onToggle}
                                />
-                    <SaveEditButton isEdit={this.state.isEdit} testSubmit={this.testSubmit} setEditMode={this.setEditMode}/>
+                    <SaveEditButton isEdit={this.state.isEdit} setViewMode={this.setViewMode} setEditMode={this.setEditMode}/>
                 </div>
                 <div style={styles.table}>
-                    <NodeViewer node={cursor} station={this.state.station} isEdit={this.state.isEdit} fieldValueListGeneration={this.fieldValueListGeneration}/>
+                    <NodeViewer node={cursor}
+                                station={this.state.station}
+                                isEdit={this.state.isEdit}
+                                fieldValueListGeneration={this.fieldValueListGeneration}
+                                addBlankField={this.addBlankField}/>
                 </div>
-                <Alert stack={true} timeout={5000} />
+                <Alert stack={true}/>
             </div>
         );
     }
