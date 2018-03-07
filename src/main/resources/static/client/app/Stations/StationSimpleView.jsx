@@ -12,7 +12,10 @@ class StationSimpleView extends React.Component {
         return (
                 <div className="table-row">
                     <div className="table-cell"> {this.props.station.name}</div>
-                    <div className="table-cell"> <Button bsStyle="primary"><Link to={"/station/" + id}>INFO</Link></Button></div>
+                        <div className="table-cell">
+                                <Button bsStyle="primary" className="custom-button-in-grid"><Link to={"/station/" + id}>INFO</Link></Button>
+                                <Button bsStyle="danger" className="custom-button-in-grid"><Link to={"/deletestation/" + id}>Удалить</Link></Button>
+                        </div>
                 </div>
 
         );

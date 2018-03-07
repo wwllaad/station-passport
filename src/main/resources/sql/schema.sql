@@ -1,4 +1,5 @@
 SET foreign_key_checks = 0;
+SET @@session.time_zone='+03:00';
 
 DROP TABLE IF EXISTS `users`;
 CREATE TABLE `users` (
@@ -14,6 +15,7 @@ DROP TABLE IF EXISTS `stations`;
 CREATE TABLE `stations` (
   `station_id` INT NOT NULL AUTO_INCREMENT,
   `station_name` VARCHAR(45) NOT NULL,
+  `deleted_at` DATETIME,
   PRIMARY KEY (`station_id`),
   UNIQUE INDEX `station_id_UNIQUE` (`station_id` ASC))
   ENGINE=InnoDB DEFAULT CHARSET=utf8;

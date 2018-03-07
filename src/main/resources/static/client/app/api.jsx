@@ -1,4 +1,6 @@
 const stationApiUrl = '/station/api?id=';
+const stationDTOUrl = '/station/byid?id=';
+const deleteStationByIdUrl = '/station/delete?id=';
 const stationsAllUrl = '/station/all';
 const usersAllUrl = '/users/all';
 const treeSectionsUrl= 'section/treeformsections?id=';
@@ -7,6 +9,7 @@ function addBlankFieldUrl(stationId, sectionId) {
     return  ('section/addsectionfields?stationId='+stationId+'&sectionId='+sectionId)
 }
 const addNewStationUrl = 'station/add?name=';
+
 const getOptions = {credentials: 'same-origin'};
 function patchOptions(data) {
     return({
@@ -21,6 +24,10 @@ function patchOptions(data) {
 
 export function getStation(stationId){
     return fetch(stationApiUrl + stationId, getOptions)
+}
+
+export function getSimpleDTOStation(stationId){
+    return fetch(stationDTOUrl + stationId, getOptions)
 }
 
 export function getAllStations(){
@@ -46,6 +53,10 @@ export function addBlankField(stationId, sectionId) {
 
 export function addNewStation(stationName) {
     return fetch(addNewStationUrl+stationName, getOptions)
+}
+
+export function deleteStationById(id) {
+    return fetch(deleteStationByIdUrl+id, getOptions)
 }
 
 

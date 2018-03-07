@@ -35,6 +35,11 @@ public class StationRestController {
     private StationDTO addNewStation(@RequestParam String name){
         return stationService.addNewStation(name);
     }
+
+    @GetMapping("/delete")
+    private void deleteStationById(@RequestParam int id){
+        stationService.deleteStationById(id);
+    }
 }
 
 

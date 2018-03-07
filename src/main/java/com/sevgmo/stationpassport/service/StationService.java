@@ -189,4 +189,9 @@ public class StationService {
 
         return getStationDTOById(stationId);
     }
+
+    public void deleteStationById(int id) {
+        sqlSession.update("deleteStationById", id);
+    }
+
 }

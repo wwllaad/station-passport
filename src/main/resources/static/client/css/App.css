@@ -41,6 +41,11 @@ a{
     border: 1px solid #5e5e5e;
     background-color: #f0f0f0;
 }
+.table-cell-delete-station{
+    padding: 10px;
+    display: table-cell;
+    background-color: #f0f0f0;
+}
 img{
     display: block;
     margin: 0 auto;
@@ -63,6 +68,9 @@ img{
 .submit-new-station-button{
     margin-top: 20px;
     float: right;
+}
+.custom-button-in-grid{
+    margin-left: 10px;
 }
 
 .navbar{
@@ -91,7 +99,7 @@ img{
     flex: 1;
 }
 
-#newStation{
+#alignXYcenterdiv{
     position: absolute;
     width: 300px;
     top: 50%;

@@ -9,7 +9,7 @@
         <result property="name" column="station_name"/>
     </resultMap>
     <select id="getAllStations" resultMap="stations">
-        SELECT * FROM stations
+        SELECT * FROM stations WHERE deleted_at IS NULL
     </select>
 
     <select id="getStationById" parameterType="java.lang.Integer" resultMap="stations">
@@ -23,4 +23,8 @@
     <insert id="addNewStation" useGeneratedKeys="true" keyProperty="id">
         INSERT INTO stations (station_name) VALUES(#{name})
     </insert>
+
+    <update id="deleteStationById" parameterType="java.lang.Integer">
+        UPDATE stations SET deleted_at = NOW() WHERE station_id = #{id}
+    </update>
 </mapper>

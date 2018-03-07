@@ -38,7 +38,7 @@ class AddNewStation extends React.Component {
             return <Redirect push to={"/station/" + this.state.station.id}/>
         }
         return (
-            <div id="newStation" className="table-cell">
+            <div id="alignXYcenterdiv" className="table-cell">
                 <h4>Введите название станции</h4>
                 <form className="form">
                     <input type="text" className="form-control"  name="stationName" onChange={this.handleChange}/>
