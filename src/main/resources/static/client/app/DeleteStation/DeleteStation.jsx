@@ -2,6 +2,9 @@ import React, { Component } from 'react';
 import DeleteButton from './DeleteButton.jsx'
 import {Redirect} from 'react-router'
 import {getSimpleDTOStation, deleteStationById} from '../api.jsx'
+import Alert from 'react-s-alert';
+import 'react-s-alert/dist/s-alert-default.css';
+import 'react-s-alert/dist/s-alert-css-effects/slide.css';
 
 class DeleteStation extends React.Component {
     constructor(props, context) {
@@ -14,6 +17,7 @@ class DeleteStation extends React.Component {
         };
         this.handleSubmit = this.handleSubmit.bind(this);
         this.toggleChange = this.toggleChange.bind(this);
+        this.alertSuccessDelete = this.alertSuccessDelete.bind(this);
     }
 
     componentDidMount() {
@@ -28,13 +32,27 @@ class DeleteStation extends React.Component {
             });
     }
 
+    alertSuccessDelete(){
+        Alert.error("Станция \"" + this.state.stationName + "\" - удалена",
+            {
+                position: 'top-right',
+                effect: 'slide',
+                offset: 30,
+                timeout: 5000
+            });
+    }
+
     handleSubmit(){
         deleteStationById(this.state.stationId)
+            .then(
+                setTimeout(() => {
+                    this.alertSuccessDelete();
+                },50
+            ))
             .then(()=>{
-                this.setState({
-                    redirect: true
-                });
-            })
+                this.setState({redirect: true});
+                }
+            )
             .catch((status, err) => {
                 console.log('error');
                 console.log(err);

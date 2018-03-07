@@ -32,12 +32,6 @@ class StationsList extends React.Component {
         return (
             <div>
                 <div id="station-list" className="table">
-                    <div className="table-header-group">
-                        <div className="table-row">
-                            <div className="table-cell">Название метеостанции</div>
-                            <div className="table-cell">Подробная информация</div>
-                        </div>
-                    </div>
                     <div className="table-row-group">
                         {stationsList}
                     </div>

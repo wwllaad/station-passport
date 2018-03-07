@@ -7,6 +7,9 @@ import TreeView from './Tree/TreeView.jsx'
 import Footer from './Footer/Footer.jsx'
 import AddNewStation from './AddNewStation/AddNewStation.jsx'
 import DeleteStation from './DeleteStation/DeleteStation.jsx'
+import Alert from 'react-s-alert';
+import 'react-s-alert/dist/s-alert-default.css';
+import 'react-s-alert/dist/s-alert-css-effects/slide.css';
 
 class App extends React.Component {
     constructor(props) {
@@ -29,6 +32,7 @@ class App extends React.Component {
                     </HashRouter>
                 </div>
                     <Footer/>
+                    <Alert stack={true}/>
             </div>
         );
     }

@@ -90,7 +90,7 @@ class TreeView extends React.Component {
                             {
                                 position: 'top-right',
                                 effect: 'slide',
-                                offset: 60,
+                                offset: 30,
                                 timeout: 5000
                             });
                     }
@@ -236,7 +236,6 @@ class TreeView extends React.Component {
                                 fieldValueListGeneration={this.fieldValueListGeneration}
                                 addBlankField={this.addBlankField}/>
                 </div>
-                <Alert stack={true}/>
             </div>
         );
     }
